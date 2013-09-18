@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome to Sketchtris!"
-        android:paddingBottom="70px"
+        android:paddingBottom="70dp"
         android:textSize="50sp"
         android:layout_centerHorizontal="true" />
     
@@ -24,5 +24,6 @@
         android:text="Play New Game"
         android:textSize="20sp" 
         android:layout_centerHorizontal="true" 
-        android:layout_below="@+id/title"/>
+        android:layout_below="@+id/title"
+        android:onClick="launchGame"/>
 </RelativeLayout>
