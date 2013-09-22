@@ -43,8 +43,13 @@ public class GameActivity extends Activity implements OnGesturePerformedListener
 	    for (Prediction p : predictions) {
 	    	//while a higher score value is "better" and helps eliminate false positives, 
 	    	//if we're too strict nobody will ever get one of their drawn shapes recognized.
-	        if (p.score > 6.0) {
+	        if (p.score > 4.5 && !(p.name.equals("T"))) {
 	          Toast.makeText(this, p.name, Toast.LENGTH_SHORT).show(); //just simple popup to say shape name, using Tetris letters
+	        }
+	        else {
+	        	if (p.score > 6.5) {
+	        		Toast.makeText(this,p.name,Toast.LENGTH_SHORT).show();
+	        	}
 	        }
 	      }
 	}

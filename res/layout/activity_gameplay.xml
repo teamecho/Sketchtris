@@ -13,8 +13,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp" 
-        android:gestureStrokeType="multiple"
-        android:orientation="vertical" >
+        android:gestureStrokeType="1"
+        android:orientation="horizontal" >
 
     </android.gesture.GestureOverlayView>
 
