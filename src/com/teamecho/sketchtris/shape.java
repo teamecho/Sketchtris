@@ -11,38 +11,57 @@ public class shape {
 		b = 1;
 		c = 1;
 		d = 1;
-	
-	switch(id){
-		case 'o':
-			form[0][1] = a;
-			form[0][2] = b;
-			form[1][1] = c;
-			form[1][2] = d;
-		case 'L':
-			form[0][1] = a;
-			form[1][1] = b;
-			form[2][1] = c;
-			form[2][2] = d;
-		case 's':
-			form[0][2] = a;
-			form[1][2] = b;
-			form[2][1] = c;
-			form[2][1] = d;
-		case 'l':
-			form[0][1] = a;
-			form[1][1] = b;
-			form[2][1] = c;
-			form[3][1] = d;
-		case 't':
-			form[0][1] = a;
-			form[1][1] = b;
-			form[1][2] = c;
-			form[2][1] = d; 
+		id = shape;
+		
+		switch(id){
+			case 'o':
+				form[0][1] = a;
+				form[0][2] = b;
+				form[1][1] = c;
+				form[1][2] = d;
+				break;
+			case 'l':
+				form[0][1] = a;
+				form[1][1] = b;
+				form[2][1] = c;
+				form[2][2] = d;
+				break;
+			case 's':
+				form[0][2] = a;
+				form[1][1] = b;
+				form[1][2] = c;
+				form[2][1] = d;
+				break;
+			case 'i':
+				form[0][1] = a;
+				form[1][1] = b;
+				form[2][1] = c;
+				form[3][1] = d;
+				break;
+			case 't':
+				form[0][1] = a;
+				form[1][1] = b;
+				form[1][2] = c;
+				form[2][1] = d;
+				break;
+			case 'z':
+				form[0][1] = a;
+				form[1][1] = b;
+				form[1][2] = c;
+				form[2][2] = d;
+				break;
+			case 'j':
+				form[0][2] = a;
+				form[1][2] = b;
+				form[2][1] = c;
+				form[2][2] = d;
+				break;
 		}
 	}
 			
 	public void rotate(){
 		rotater = form;
+		//THIS IS A ROTATE MATRIX BY CHELSEA WHO SUCKS AT COMMENTING
 		// abcd miea
 		// efgh njfb
 		// ijkl okgc
