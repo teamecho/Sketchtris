@@ -2,7 +2,7 @@ package com.teamecho.sketchtris;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.gesture.Gesture;
 import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
@@ -11,8 +11,10 @@ import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 import android.gesture.Prediction;
 import android.os.Bundle;
 import android.widget.Toast;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 
-public class GameActivity extends Activity implements OnGesturePerformedListener {
+public class GameActivity extends FragmentActivity implements OnGesturePerformedListener, GameOverFragment.NoticeDialogListener {
 	GestureLibrary myGestureLib; //this will have the defined gestures stored in it, so it knows what to look for
 	
 	@Override
@@ -31,6 +33,8 @@ public class GameActivity extends Activity implements OnGesturePerformedListener
 	    if (!myGestureLib.load()) {
 	    	finish(); 
 	    }
+	    
+	    confirmGameOver();
 	}
 
 	@Override
@@ -48,5 +52,28 @@ public class GameActivity extends Activity implements OnGesturePerformedListener
 	        }
 	      }
 	}
+	
+	/*tests to see if the game is over ******* NEEDS TO BE MOVED TO THE GAME VIEW ********
+	 *returns true if it is*/
+	public boolean gameOver(){
+		boolean over = false;		
+		//if spots greater than the max row have a 1
+			//over = true;
+			//popup fragment with game over button with ok
+			//clear out grid
+			//change activity
+		return over;
+	}
+	
+	public void confirmGameOver() {
+	    DialogFragment newFragment = new GameOverFragment();
+	    newFragment.show(getSupportFragmentManager(), "gameover");
+	}
+	
+	public void onDialogPositiveClick(DialogFragment dialog) {
+        // User touched the dialog's positive button
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+    }
 	
 }
