@@ -35,10 +35,12 @@ public class SketchtrisGrid {
     public void paint(Canvas canvas, Paint paint) {
             mLeft = 0;
             mTop = 0;
-            mRight = mCellWidth * COLS;
-            mBottom = mCellHeight * ROWS;
+            mRight = mCellWidth; 
+            mBottom = mCellHeight; 
+            //mRight = mCellWidth * COLS;
+            //mBottom = mCellHeight * ROWS;
             
-            paint.setColor(Color.BLACK);
+            paint.setColor(Color.RED);
             paint.setStyle(Paint.Style.FILL);
             canvas.drawRect(mLeft, mTop, mRight, mBottom, paint);
 

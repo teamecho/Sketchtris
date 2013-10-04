@@ -28,6 +28,10 @@ public class SketchtrisView extends View {
 		startGameVars(); //set all my gameplay instance specific vars
 	}
 	
+	public SketchtrisGrid getGrid() {
+		return myGrid; 
+	}
+	
 	public void startGameVars() {
 		numUpdates = 0; 
 		gamePlayTime = 0; 

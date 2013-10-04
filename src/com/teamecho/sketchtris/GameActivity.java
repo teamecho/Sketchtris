@@ -18,6 +18,7 @@ public class GameActivity extends Activity {
 	private GestureLibrary myGestureLib; 
 	private GestureOverlayView gOV;
 	private FrameLayout mFL; 
+	private SketchtrisGrid mGrid; 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class GameActivity extends Activity {
 		//solution 2
 		gOV = new GestureOverlayView(this); 
 		gameplayView = new SketchtrisView(this); 
+		mGrid = gameplayView.getGrid(); 
 		mFL = new FrameLayout(this);
 		
 		 //gestureOverlayView.addView(surfaceView);    
@@ -54,9 +56,11 @@ public class GameActivity extends Activity {
 			    	//if we're too strict nobody will ever get one of their drawn shapes recognized.
 			        if (p.score > 4.5 && !(p.name.equals("T"))) {
 			          Toast.makeText(getBaseContext(), p.name, Toast.LENGTH_SHORT).show(); //just simple popup to say shape name, using Tetris letters
+			          gameplayView.invalidate();  
+			          //mGrid.paint(canvas, paint);
 			        }
 			        else {
-			        	if (p.score > 6.5) {
+			        	if (p.score > 9.5) {
 			        		Toast.makeText(getBaseContext(),p.name,Toast.LENGTH_SHORT).show();
 			        	}
 			        }
