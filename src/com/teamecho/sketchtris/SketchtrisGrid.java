@@ -1,4 +1,5 @@
 package com.teamecho.sketchtris;
+
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -26,34 +27,41 @@ public class SketchtrisGrid {
 			mCells[i] = 0;
 		}
 		//ARBITRARY NUMBERS
-		mCellWidth = 20;
-		mCellHeight = 20;
+		mCellWidth = 57;
+		mCellHeight = 50;
 	}
 	
 
     public void paint(Canvas canvas, Paint paint) {
             mLeft = 0;
             mTop = 0;
-            mRight = mCellWidth * COLS;
-            mBottom = mCellHeight * ROWS;
+            mRight = mCellWidth; 
+            mBottom = mCellHeight; 
+            //mRight = mCellWidth * COLS;
+            //mBottom = mCellHeight * ROWS;
             
-            paint.setColor(Color.GRAY);
+            paint.setColor(Color.RED);
             paint.setStyle(Paint.Style.FILL);
             canvas.drawRect(mLeft, mTop, mRight, mBottom, paint);
 
            
-            //paint elems
+            //paint elems -- gotta do this every call to paint() so that grid looks right as shape "falls"
             int l,t,r,b;
-            for(int i = 0; i < mCells.length; i++)
-            {
+            int c1 = Color.parseColor("#961384");
+            int c2 = Color.parseColor("#1f4c77");
+            int c3 = Color.parseColor("#11751d");
+            int c4 = Color.parseColor("#9b1212");
+            for(int i = 0; i < mCells.length; i++) {
                     l = mLeft + (i % COLS) * mCellWidth;
                     t = mTop+(i / COLS) * mCellHeight;
                     r = l + mCellWidth;
                     b = t + mCellHeight;
-                    paint.setColor(Color.YELLOW);
+                    if (i%4==0) paint.setColor(c1);
+                    else if (i%4==1) paint.setColor(c2);
+                    else if (i%4==2) paint.setColor(c3);
+                    else paint.setColor(c4);
                     paint.setStyle((mCells[i] == 1)?Paint.Style.FILL:Paint.Style.STROKE);
                     canvas.drawRect(l, t, r, b, paint);
-
             }
 
             paint.setColor(Color.RED);
