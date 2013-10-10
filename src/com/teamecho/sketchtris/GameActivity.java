@@ -59,21 +59,49 @@ public class GameActivity extends FragmentActivity implements OnGesturePerformed
 		boolean over = false;		
 		//if spots greater than the max row have a 1
 			//over = true;
-			//popup fragment with game over button with ok
+			confirmGameOver();
 			//clear out grid
 			//change activity
 		return over;
 	}
 	
+	//popup fragment for game over
 	public void confirmGameOver() {
 	    DialogFragment newFragment = new GameOverFragment();
 	    newFragment.show(getSupportFragmentManager(), "gameover");
 	}
 	
+	//for game over button
 	public void onDialogPositiveClick(DialogFragment dialog) {
         // User touched the dialog's positive button
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
     }
+	
+	//move piece right
+	public void moveRight(){
+		
+		
+	}
+	
+	//move piece left
+	public void moveLeft(){
+		
+		
+	}
+	
+	//move piece down
+	
+	public void moveDown(){
+		
+		
+	}
+	
+	//rotate piece
+	public void rotate(){
+		
+	
+	}
+	
 	
 }
