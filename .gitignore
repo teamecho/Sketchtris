@@ -5,21 +5,22 @@
 *.pydevproject
 .project
 .metadata
-.class
-.cache
 bin/
 tmp/
-bin\
 *.tmp
 *.bak
 *.swp
 *~.nib
 local.properties
-.classpath
+*.classpath
 .settings/
 .loadpath
-
-
+*.class
+*.cache
+*.apk
+*.dex
+*.class
+*.jar
 
 # External tool builders
 .externalToolBuilders/

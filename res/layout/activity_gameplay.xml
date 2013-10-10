@@ -8,10 +8,14 @@
         android:id="@+id/gestureOverlayView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/button2"
+        android:background="#999999"
         android:gestureStrokeType="multiple"
         android:orientation="vertical" >
+
     </android.gesture.GestureOverlayView>
 
     <ImageButton
@@ -54,53 +58,71 @@
         android:layout_above="@+id/button3"
         android:layout_alignParentRight="true"
         android:layout_marginRight="32dp"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/rotate"
         android:src="@drawable/rotate" />
-    
-   
-    <TextView
-        android:id="@+id/numOfL"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        
-        />
-    
-    <TextView
-        android:id="@+id/numOfT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-    
-    <TextView
-        android:id="@+id/numOfS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-    
-    <TextView
-        android:id="@+id/numOfZ"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-    
-    <TextView
-        android:id="@+id/numOfI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-    
+
     <TextView
         android:id="@+id/numOfO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
-    
+        android:layout_alignRight="@+id/numOfL"
+        android:layout_below="@+id/numOfL"
+        android:text="10 - O"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/numOfZ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/numOfO"
+        android:layout_below="@+id/numOfO"
+        android:text="15 - Z"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/numOfS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/numOfO"
+        android:layout_below="@+id/numOfI"
+        android:text="15 - S"
+        android:textSize="30sp" />
+
     <TextView
         android:id="@+id/numOfJ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
-    
-    
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="15 - J"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/numOfL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/numOfJ"
+        android:text="15 - L"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/numOfT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/numOfS"
+        android:text="15 - T"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/numOfI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/numOfZ"
+        android:text="7 - I"
+        android:textSize="30sp" />
 
 </RelativeLayout>
