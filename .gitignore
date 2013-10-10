@@ -5,8 +5,11 @@
 *.pydevproject
 .project
 .metadata
+.class
+.cache
 bin/
 tmp/
+bin\
 *.tmp
 *.bak
 *.swp
@@ -15,9 +18,8 @@ local.properties
 .classpath
 .settings/
 .loadpath
-.class
-.cache
-bin\
+
+
 
 # External tool builders
 .externalToolBuilders/
