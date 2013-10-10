@@ -21,6 +21,8 @@ local.properties
 *.dex
 *.class
 *.jar
+Sketchtris.apk
+classes.dex
 
 # External tool builders
 .externalToolBuilders/
