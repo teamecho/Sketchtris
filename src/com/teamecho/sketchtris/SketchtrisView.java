@@ -13,7 +13,6 @@ public class SketchtrisView extends View {
 	private int numUpdates; //how many updates we've done
 	private int gamePlayTime; //how long the game has been playing
 	private int fps; //arbitrary amount until we unify this across classes
-	private Activity hostActivity; //use to store reference to host activity showing view
 	
 	public SketchtrisView(Activity context) {
 		super(context);
@@ -23,13 +22,16 @@ public class SketchtrisView extends View {
 		setFocusable(true);  //this view can have focus
 		//setFocusableInTouchMode(false); //focus priority on touch
 		paint = new Paint(); //create Paint object to make shapes show up on screen
-		
 		myGrid = new SketchtrisGrid(); //init my grid obj to play on
 		startGameVars(); //set all my gameplay instance specific vars
 	}
 	
 	public SketchtrisGrid getGrid() {
 		return myGrid; 
+	}
+	
+	public void setCurrentShape(shape s) {
+		currentShape = s; 
 	}
 	
 	public void startGameVars() {
@@ -43,7 +45,7 @@ public class SketchtrisView extends View {
     protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
             myGrid.paint(canvas, paint); //paints elements
-            invalidate(); //ensures redraw occurs
+            //invalidate(); //ensures redraw occurs -- UNNECESSARY
     }
 
 }
