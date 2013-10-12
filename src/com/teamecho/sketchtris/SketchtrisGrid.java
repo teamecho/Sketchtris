@@ -3,6 +3,8 @@ package com.teamecho.sketchtris;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
+import android.widget.Toast;
 
 
 public class SketchtrisGrid {
@@ -16,8 +18,8 @@ public class SketchtrisGrid {
 	private int mBottom;
 	
 	//These probably should be moved to a more general class.
-	private static final int COLS = 12;
-	private static final int ROWS = 20;
+	public static final int COLS = 12;
+	public static final int ROWS = 20;
 	
 
 	public SketchtrisGrid(){
@@ -33,16 +35,16 @@ public class SketchtrisGrid {
 	
 
     public void paint(Canvas canvas, Paint paint) {
+
             mLeft = 0;
             mTop = 0;
             mRight = mCellWidth; 
             mBottom = mCellHeight; 
-            //mRight = mCellWidth * COLS;
-            //mBottom = mCellHeight * ROWS;
-            
-            paint.setColor(Color.RED);
+            mRight = mCellWidth * COLS;
+            mBottom = mCellHeight * ROWS;
+            paint.setColor(Color.BLACK);
             paint.setStyle(Paint.Style.FILL);
-            canvas.drawRect(mLeft, mTop, mRight, mBottom, paint);
+            canvas.drawRect(mLeft, mTop, mRight+120, mBottom+100, paint);
 
            
             //paint elems -- gotta do this every call to paint() so that grid looks right as shape "falls"
@@ -53,7 +55,7 @@ public class SketchtrisGrid {
             int c4 = Color.parseColor("#9b1212");
             for(int i = 0; i < mCells.length; i++) {
                     l = mLeft + (i % COLS) * mCellWidth;
-                    t = mTop+(i / COLS) * mCellHeight;
+                    t = (mTop+(i / COLS) * mCellHeight);
                     r = l + mCellWidth;
                     b = t + mCellHeight;
                     if (i%4==0) paint.setColor(c1);
@@ -61,16 +63,20 @@ public class SketchtrisGrid {
                     else if (i%4==2) paint.setColor(c3);
                     else paint.setColor(c4);
                     paint.setStyle((mCells[i] == 1)?Paint.Style.FILL:Paint.Style.STROKE);
+                    int cTemp = paint.getColor(); 
+                    paint.setColor((mCells[i] == 1)?Color.parseColor("#dd2222"):cTemp);
                     canvas.drawRect(l, t, r, b, paint);
+                    paint.setStyle(Paint.Style.STROKE); 
+                    paint.setColor(cTemp); 
+                    canvas.drawRect(l, t, r, b, paint); 
             }
 
-            paint.setColor(Color.RED);
-            paint.setStyle(Paint.Style.STROKE);
-            canvas.drawRect(mLeft, mTop, mRight, mBottom, paint);
     }
 
 	
-	
+	public boolean isEndOfRow(int index){
+		return(index == 0 || index%12 == 0 || index%11 == 0);		
+	}
 	
 	public int getRow(int index){
 		//Where index is the index of some cell in mCells[]
@@ -133,11 +139,33 @@ public class SketchtrisGrid {
 		}
 		
 	}
+	/*
+	public void placeShape(shape s, int x, int y){
+		int[][] temp = s.form;
+		for( int i = 0; i < 4; i++){
+			for(int j = 0; j < 4; j++){
+				if(temp[i][j] == 1){
+					this.fillCell(x, y);
+				}
+			}
+		}
+	}
+	*/
+	public void fillCell(int index){
+		mCells[index] = 1;
+	}
 	
 	public void fillCell(int row, int col){
 		//given the row/column of a cell, fill it.
 		int index = (row * 12) + col;
-		mCells[index] = 1;
+		fillCell(index);
 	}
 	
+	public void emptyCell(int index){
+		mCells[index] = 0;
+	}
+	
+	public boolean isEmptyCell(int index){
+		return (mCells[index] == 0);
+	}
 }

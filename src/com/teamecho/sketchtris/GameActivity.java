@@ -19,6 +19,9 @@ public class GameActivity extends Activity {
 	private GestureOverlayView gOV;
 	private FrameLayout mFL; 
 	private SketchtrisGrid mGrid; 
+	private final int startX = mGrid.COLS/2 - 3; // centers falling piece
+	private final int startY = 0;
+	public shape currentShape;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +34,9 @@ public class GameActivity extends Activity {
 		mFL = new FrameLayout(this);
 		
 		 //gestureOverlayView.addView(surfaceView);    
-        gOV.setOrientation(gOV.ORIENTATION_VERTICAL);
+        gOV.setOrientation(GestureOverlayView.ORIENTATION_VERTICAL);
         gOV.setEventsInterceptionEnabled(true);
-        gOV.setGestureStrokeType(gOV.GESTURE_STROKE_TYPE_MULTIPLE);	
+        gOV.setGestureStrokeType(GestureOverlayView.GESTURE_STROKE_TYPE_MULTIPLE);	
         //gOV.addOnGesturePerformedListener(this);
 	    //make sure our gestures pre defined to correspond to Tetris shapes are used 
 	    myGestureLib = GestureLibraries.fromRawResource(this, R.raw.gestures);
@@ -46,6 +49,10 @@ public class GameActivity extends Activity {
 			@Override
 			//this method fires off when the user has finished inputting the gesture
 			public void onGesturePerformed(GestureOverlayView arg0, Gesture gesture) {
+				// clean grid from last gesture?
+				for ( int i  = 0; i < (SketchtrisGrid.COLS*SketchtrisGrid.ROWS); i++){
+					mGrid.emptyCell(i);
+				}
 				Log.v("performed","performed");
 				//as our gestureLibrary tries to recognize drawn shapes, it creates Prediction objects;
 				//Prediction objects basically store a name and a score (score is likelihood of a match)
@@ -56,11 +63,12 @@ public class GameActivity extends Activity {
 			    	//if we're too strict nobody will ever get one of their drawn shapes recognized.
 			        if (p.score > 4.5 && !(p.name.equals("T"))) {
 			          Toast.makeText(getBaseContext(), p.name, Toast.LENGTH_SHORT).show(); //just simple popup to say shape name, using Tetris letters
-			          gameplayView.invalidate();  
-			          //mGrid.paint(canvas, paint);
+			          gameplayView.setCurrentShape(new shape((p.name.toCharArray())[0], mGrid)); // draws shape at intialize place.
+			          //mGrid.placeShape(new shape(p.name, this), startX, startY);
+			          gameplayView.invalidate(); 
 			        }
 			        else {
-			        	if (p.score > 9.5) {
+			        	if (p.score > 9.5 && !p.name.equals("T")) {
 			        		Toast.makeText(getBaseContext(),p.name,Toast.LENGTH_SHORT).show();
 			        	}
 			        }

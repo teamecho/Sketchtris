@@ -2,16 +2,64 @@ package com.teamecho.sketchtris;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.gesture.Gesture;
+import android.gesture.GestureOverlayView;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		Typeface tF = Typeface.createFromAsset(getAssets(),"Roboto-Thin.ttf"); 
+		LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View v = inflater.inflate(R.layout.activity_main, null, false);
+		v.setBackgroundColor(Color.parseColor("#000000"));
+		//RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+		//		                                                            RelativeLayout.LayoutParams.WRAP_CONTENT);
+		//param.addRule(RelativeLayout.ABOVE, R.id.coinText);
+		TextView tv = ((TextView)v.findViewById(R.id.title));
+		tv.setTypeface(tF);
+		tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 52);
+		tv.setTextColor(Color.parseColor("#19909e"));
+		//tv.setLayoutParams(param); 
+		
+		RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                                                                             RelativeLayout.LayoutParams.WRAP_CONTENT);
+		param.addRule(RelativeLayout.BELOW, R.id.title);
+		//param2.addRule(RelativeLayout.CENTER_VERTICAL);
+		TextView coinText = (TextView)v.findViewById(R.id.coinText);
+		coinText.setTypeface(tF);
+		coinText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30); 
+		coinText.setTextColor(Color.parseColor("#FFFFFF"));
+		v.setOnClickListener(this);
+		v.setLayoutParams(param);
+		
+		setContentView(v);
+		
+		Animation anim = new AlphaAnimation(0.0f, 1.0f);
+		anim.setDuration(750); //You can manage the time of the blink with this parameter
+		anim.setStartOffset(10);
+		anim.setRepeatMode(Animation.REVERSE);
+		anim.setRepeatCount(Animation.INFINITE);
+		coinText.startAnimation(anim); 
+		
+ 
 	}
 
 	@Override
@@ -24,6 +72,11 @@ public class MainActivity extends Activity {
 	public void launchGame(View view) {
 		Intent intent = new Intent(this, GameActivity.class);
 		startActivity(intent);
+	}
+
+	@Override
+	public void onClick(View v) {
+		launchGame(v); 
 	}
 
 }
