@@ -11,35 +11,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to Sketchtris!"
-        android:layout_alignHorizontal="true" 
-        android:layout_above="@id/coinText"/>
-    
     <TextView
         android:id="@+id/coinText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="COINS INSERTED. TAP TO PLAY"
-        android:layout_below="@id/title"
-        android:layout_alignHorizontal="true"
-        android:layout_alignVertical="true" />
-
-    <Button
-        android:id="@+id/playgamebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/main"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="352dp"
-        android:onClick="launchGame"
-        android:text="Play New Game"
-        android:textSize="20sp" />
-
-    
+        android:layout_marginTop="372dp"
+        android:text="COINS INSERTED. TAP TO PLAY" />
 
 </RelativeLayout>

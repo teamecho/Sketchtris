@@ -91,8 +91,8 @@ public class GameActivity extends FragmentActivity implements OnGesturePerformed
 			          //mGrid.placeShape(new shape(p.name, this), startX, startY);
 			          gameplayView.invalidate(); 
 
-			          //gameplayView.invalidate();  
-			          //mGrid.paint(canvas, paint);
+			         //gameplayView.invalidate();  
+			         // mGrid.paint(canvas, paint);
 
 			        }
 			        else {

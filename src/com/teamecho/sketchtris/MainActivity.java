@@ -30,19 +30,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		Typeface tF = Typeface.createFromAsset(getAssets(),"Roboto-Thin.ttf"); 
 		LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View v = inflater.inflate(R.layout.activity_main, null, false);
-		v.setBackgroundColor(Color.parseColor("#000000"));
+		
 		//RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
 		//		                                                            RelativeLayout.LayoutParams.WRAP_CONTENT);
 		//param.addRule(RelativeLayout.ABOVE, R.id.coinText);
-		TextView tv = ((TextView)v.findViewById(R.id.title));
-		tv.setTypeface(tF);
-		tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 52);
-		tv.setTextColor(Color.parseColor("#19909e"));
-		//tv.setLayoutParams(param); 
-		
 		RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                                                                              RelativeLayout.LayoutParams.WRAP_CONTENT);
-		param.addRule(RelativeLayout.BELOW, R.id.title);
+		
 		//param2.addRule(RelativeLayout.CENTER_VERTICAL);
 		TextView coinText = (TextView)v.findViewById(R.id.coinText);
 		coinText.setTypeface(tF);

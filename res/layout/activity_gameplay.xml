@@ -12,7 +12,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/button2"
-        android:background="#999999"
         android:gestureStrokeType="multiple"
         android:orientation="vertical" >
 
