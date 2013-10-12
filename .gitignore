@@ -12,7 +12,7 @@ tmp/
 *.swp
 *~.nib
 local.properties
-*.classpath
+.classpath
 .settings/
 .loadpath
 *.class
@@ -24,6 +24,7 @@ local.properties
 *.jar
 Sketchtris.apk
 classes.dex
+jarlist.cache
 
 # External tool builders
 .externalToolBuilders/
