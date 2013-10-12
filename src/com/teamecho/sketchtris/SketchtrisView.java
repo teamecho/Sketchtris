@@ -18,7 +18,7 @@ public class SketchtrisView extends View {
 		super(context);
 		//hostActivity = context; //track who I display inside of to pass Context to methods
 		//setBackgroundColor(color.holo_blue_dark);
-		///setContentView(R.layout.activity_gameplay);
+		//setContentView(R.layout.activity_gameplay);
 		setFocusable(true);  //this view can have focus
 		//setFocusableInTouchMode(false); //focus priority on touch
 		paint = new Paint(); //create Paint object to make shapes show up on screen
