@@ -1,9 +1,9 @@
 package com.teamecho.sketchtris;
-
+ 
 import java.util.ArrayList;
-
+ 
 import android.content.Intent;
-
+ 
 import android.app.Activity;
 import android.gesture.Gesture;
 import android.gesture.GestureLibraries;
@@ -18,10 +18,10 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-
+ 
 public class GameActivity extends FragmentActivity implements OnGesturePerformedListener, GameOverFragment.NoticeDialogListener { 
-
-	private SketchtrisView gameplayView; 
+ 
+  private SketchtrisView gameplayView; 
 	private GestureLibrary myGestureLib; 
 	private GestureOverlayView gOV;
 	private FrameLayout mFL; 
@@ -33,8 +33,7 @@ public class GameActivity extends FragmentActivity implements OnGesturePerformed
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState); //call superclass Activity's onCreate to pass Bundle obj
-		setContentView(R.layout.activity_gameplay);
-		//solution 2
+		//setContentView(R.layout.activity_gameplay); <-- heres your issue, this can't be
 		gOV = new GestureOverlayView(this); 
 		gameplayView = new SketchtrisView(this); 
 		mGrid = gameplayView.getGrid(); 
@@ -51,23 +50,6 @@ public class GameActivity extends FragmentActivity implements OnGesturePerformed
 	    if (!myGestureLib.load()) {
 	    	finish(); 
 	    }
-	}
-
-	@Override
-	//this method fires off when the user has finished inputting the gesture
-	public void onGesturePerformed(GestureOverlayView arg0, Gesture gesture) {
-		//as our gestureLibrary tries to recognize drawn shapes, it creates Prediction objects;
-		//Prediction objects basically store a name and a score (score is likelihood of a match)
-		//So predictions is an ArrayList of all our Gestures with the likelihood that we have a match of each one
-	    ArrayList<Prediction> predictions = myGestureLib.recognize(gesture);
-	    for (Prediction p : predictions) {
-	    	//while a higher score value is "better" and helps eliminate false positives, 
-	    	//if we're too strict nobody will ever get one of their drawn shapes recognized.
-	        if (p.score > 6.0) {
-	          Toast.makeText(this, p.name, Toast.LENGTH_SHORT).show(); //just simple popup to say shape name, using Tetris letters
-	        }
-	      }
-	    
 	    gOV.addOnGesturePerformedListener(new OnGesturePerformedListener() {
 			@Override
 			//this method fires off when the user has finished inputting the gesture
@@ -86,14 +68,14 @@ public class GameActivity extends FragmentActivity implements OnGesturePerformed
 			    	//if we're too strict nobody will ever get one of their drawn shapes recognized.
 			        if (p.score > 4.5 && !(p.name.equals("T"))) {
 			          Toast.makeText(getBaseContext(), p.name, Toast.LENGTH_SHORT).show(); //just simple popup to say shape name, using Tetris letters
-
+ 
 			          gameplayView.setCurrentShape(new shape((p.name.toCharArray())[0], mGrid)); // draws shape at intialize place.
 			          //mGrid.placeShape(new shape(p.name, this), startX, startY);
 			          gameplayView.invalidate(); 
-
+ 
 			         //gameplayView.invalidate();  
 			         // mGrid.paint(canvas, paint);
-
+ 
 			        }
 			        else {
 			        	if (p.score > 9.5 && !p.name.equals("T")) {
@@ -106,6 +88,22 @@ public class GameActivity extends FragmentActivity implements OnGesturePerformed
         mFL.addView(gameplayView, 0);
         mFL.addView(gOV,1);
         setContentView(mFL);
+	}
+ 
+	@Override
+	//this method fires off when the user has finished inputting the gesture
+	public void onGesturePerformed(GestureOverlayView arg0, Gesture gesture) {
+		//as our gestureLibrary tries to recognize drawn shapes, it creates Prediction objects;
+		//Prediction objects basically store a name and a score (score is likelihood of a match)
+		//So predictions is an ArrayList of all our Gestures with the likelihood that we have a match of each one
+	    ArrayList<Prediction> predictions = myGestureLib.recognize(gesture);
+	    for (Prediction p : predictions) {
+	    	//while a higher score value is "better" and helps eliminate false positives, 
+	    	//if we're too strict nobody will ever get one of their drawn shapes recognized.
+	        if (p.score > 6.0) {
+	          Toast.makeText(this, p.name, Toast.LENGTH_SHORT).show(); //just simple popup to say shape name, using Tetris letters
+	        }
+	      }
 	}
 	
 	/*tests to see if the game is over ******* NEEDS TO BE MOVED TO THE GAME VIEW ********
