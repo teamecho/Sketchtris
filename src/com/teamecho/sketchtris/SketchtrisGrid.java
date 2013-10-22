@@ -35,7 +35,7 @@ public class SketchtrisGrid {
 	
 
     public void paint(Canvas canvas, Paint paint) {
-
+    	
             mLeft = 0;
             mTop = 0;
             mRight = mCellWidth; 
