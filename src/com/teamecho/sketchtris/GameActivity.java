@@ -19,7 +19,7 @@ import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
  
-public class GameActivity extends FragmentActivity implements OnGesturePerformedListener, GameOverFragment.NoticeDialogListener { 
+public class GameActivity extends FragmentActivity implements GameOverFragment.NoticeDialogListener { 
  
   private SketchtrisView gameplayView; 
 	private GestureLibrary myGestureLib; 
@@ -35,7 +35,7 @@ public class GameActivity extends FragmentActivity implements OnGesturePerformed
 		super.onCreate(savedInstanceState); //call superclass Activity's onCreate to pass Bundle obj
 		//setContentView(R.layout.activity_gameplay); <-- heres your issue, this can't be
 		gOV = new GestureOverlayView(this); 
-		gameplayView = new SketchtrisView(this); 
+		gameplayView = new SketchtrisView(this, gOV); 
 		mGrid = gameplayView.getGrid(); 
 		mFL = new FrameLayout(this);
 		
@@ -83,6 +83,7 @@ public class GameActivity extends FragmentActivity implements OnGesturePerformed
 			        	}
 			        }
 			      }
+			    gOV.setFocusableInTouchMode(false);
 			}
 	    });
         mFL.addView(gameplayView, 0);
@@ -90,22 +91,6 @@ public class GameActivity extends FragmentActivity implements OnGesturePerformed
         setContentView(mFL);
 	}
  
-	@Override
-	//this method fires off when the user has finished inputting the gesture
-	public void onGesturePerformed(GestureOverlayView arg0, Gesture gesture) {
-		//as our gestureLibrary tries to recognize drawn shapes, it creates Prediction objects;
-		//Prediction objects basically store a name and a score (score is likelihood of a match)
-		//So predictions is an ArrayList of all our Gestures with the likelihood that we have a match of each one
-	    ArrayList<Prediction> predictions = myGestureLib.recognize(gesture);
-	    for (Prediction p : predictions) {
-	    	//while a higher score value is "better" and helps eliminate false positives, 
-	    	//if we're too strict nobody will ever get one of their drawn shapes recognized.
-	        if (p.score > 6.0) {
-	          Toast.makeText(this, p.name, Toast.LENGTH_SHORT).show(); //just simple popup to say shape name, using Tetris letters
-	        }
-	      }
-	}
-	
 	/*tests to see if the game is over ******* NEEDS TO BE MOVED TO THE GAME VIEW ********
 	 *returns true if it is*/
 	public boolean gameOver(){

@@ -8,72 +8,87 @@ public class shape {
 	SketchtrisGrid myGrid;
 	int p11, p12, p13, p14, p21, p22, p23, p24, p31, p32, p33, p34, p41, p42, p43, p44;
 	int[] formpoints = { p11, p12, p13, p14, p21, p22, p23, p24, p31, p32, p33, p34, p41, p42, p43, p44 };
+	
+	
+	//NEW STUFF CHELSEA DON'T HATE ME
+	Cube c1,c2,c3,c4;
+	
+	
+	
 	public shape(char shape, SketchtrisGrid grid){
 		// Symbolic representation of the four cubes that build a shape.
 		a = b = c = d = 1;
 		myGrid = grid;
 		id = shape;
+		int rows = SketchtrisGrid.ROWS;
+		int cols = SketchtrisGrid.COLS;
 		
-		p11 = SketchtrisGrid.COLS*(SketchtrisGrid.ROWS-SketchtrisGrid.ROWS/2+1) + ((SketchtrisGrid.COLS/2)-2);
+		
+		//APPEARS TO BE TOTALLY WRONG SO YEAH
+		/*p11 = SketchtrisGrid.COLS*(SketchtrisGrid.ROWS-SketchtrisGrid.ROWS/2+1) + ((SketchtrisGrid.COLS/2)-2);
 		p12 = p11 + 1; p13 = p12 + 1; p14 = p13 + 1;
 		p21 = SketchtrisGrid.COLS*(SketchtrisGrid.ROWS-SketchtrisGrid.ROWS/2) + ((SketchtrisGrid.COLS/2)-2);
 		p22 = p21 + 1; p23 = p22 + 1; p24 = p23 + 1;
 		p31 = SketchtrisGrid.COLS*(SketchtrisGrid.ROWS-SketchtrisGrid.ROWS/2-1) + ((SketchtrisGrid.COLS/2)-2);
 		p32 = p31 + 1; p33 = p32 + 1; p34 = p33 + 1;
 		p41 = SketchtrisGrid.COLS*(SketchtrisGrid.ROWS-SketchtrisGrid.ROWS/2+1-2) + ((SketchtrisGrid.COLS/2)-2);
-		p42 = p41 + 1; p43 = p42 + 1; p44 = p43 + 1;
-				
+		p42 = p41 + 1; p43 = p42 + 1; p44 = p43 + 1;	
+		*/
+		
+		
 		
 		switch(id){
 			case 'O':
-				myGrid.fillCell(p12);
-				myGrid.fillCell(p13);
-				myGrid.fillCell(p22);
-				myGrid.fillCell(p23);
+				c1 = new Cube(0, cols/2 -1);
+				c2 = new Cube(0, cols/2);
+				c3 = new Cube(1, cols/2);
+				c4 = new Cube(1, cols/2 - 1);
 				break;
 			case 'L':
-				myGrid.fillCell(p21);
-				myGrid.fillCell(p22);
-				myGrid.fillCell(p23);
-				myGrid.fillCell(p24);
+				c1 = new Cube(0, cols/2 -1);
+				c2 = new Cube(1, cols/2 - 1);
+				c3 = new Cube(2, cols/2 - 1);
+				c4 = new Cube(2, cols/2);
 				break;
 			case 'S':
-				myGrid.fillCell(p13);
-				myGrid.fillCell(p22);
-				myGrid.fillCell(p23);
-				myGrid.fillCell(p32);
+				c1 = new Cube(0, cols/2 -1);
+				c2 = new Cube(0, cols/2);
+				c3 = new Cube(1, cols/2 - 2);
+				c4 = new Cube(1, cols/2 - 1);
 				break;
 			case 'I':
-				myGrid.fillCell(p12);
-				myGrid.fillCell(p22);
-				myGrid.fillCell(p32);
-				myGrid.fillCell(p42);
+				c1 = new Cube(0, cols/2 - 1);
+				c2 = new Cube(0, cols/2);
+				c3 = new Cube(0, cols/2 - 2);
+				c4 = new Cube(0, cols/2 + 1);
 				break;
 			case 'T':
-				myGrid.fillCell(p12);
-				myGrid.fillCell(p22);
-				myGrid.fillCell(p23);
-				myGrid.fillCell(p32);
+				c1 = new Cube(0, cols/2 -1);
+				c2 = new Cube(1, cols/2 - 1);
+				c3 = new Cube(2, cols/2);
+				c4 = new Cube(1, cols/2 - 1);
 				break;
 			case 'Z':
-				myGrid.fillCell(p12);
-				myGrid.fillCell(p22);
-				myGrid.fillCell(p23);
-				myGrid.fillCell(p33);
+				c1 = new Cube(0, cols/2 - 1);
+				c2 = new Cube(0, cols/2);
+				c3 = new Cube(1, cols/2);
+				c4 = new Cube(1, cols/2 + 1);
 				break;
 			case 'J':
-				myGrid.fillCell(p13);
-				myGrid.fillCell(p23);
-				myGrid.fillCell(p32);
-				myGrid.fillCell(p33);
+				c1 = new Cube(0, cols/2);
+				c2 = new Cube(1, cols/2);
+				c3 = new Cube(2, cols/2);
+				c4 = new Cube(2, cols/2 - 1);
 				break;
 		}
+		
+		pushToGrid();				
 	}
 			
 	public void rotateRight(){
 		
 		rotater = form;
-		//THIS IS A ROTATE MATRIX BY CHELSEA WHO IS SO AWESOME
+		//THIS IS A ROTATE MATRIX BY CHELSEA WHO IS A POOPY HEAD
 		// abcd miea
 		// efgh njfb
 		// ijkl okgc
@@ -129,22 +144,80 @@ public class shape {
 		if(!myGrid.isEmptyCell(p41)) { myGrid.fillCell(p44); myGrid.emptyCell(p41); }
 	}
 	
-	public void fall(int lvls){
+	/*public void fall(int lvls){
 	// Method drops the shape straight down a given number of lvls
-		boolean isBlocked = false;
-		int t = lvls * SketchtrisGrid.COLS;
-		for (int k = 0; k < formpoints.length; k++){
-			if (!myGrid.isEmptyCell(formpoints[k]+t)){
-				isBlocked = true;
-			}
-		}
-		if (isBlocked){
+
+		if (bottomHit()){
 			// Perform tasks for landing 
 		}
 		else {
+			int t = lvls * SketchtrisGrid.COLS;
 			this.shiftShapeBy(t);
 		}
 	}
+	*/
+	
+	public void shiftShapeDown(){
+		if(!bottomHit()){
+			removeFromGrid();
+			c1.row++;
+			c2.row++;
+			c3.row++;
+			c4.row++;
+			pushToGrid();
+		}
+		else{
+			//solidify in grid
+		}
+		
+	}
+	
+	public void pushToGrid(){
+		myGrid.fillCell(c1.row, c1.col);
+		myGrid.fillCell(c2.row, c2.col);
+		myGrid.fillCell(c3.row, c3.col);
+		myGrid.fillCell(c4.row, c4.col);
+	}
+	
+	public void removeFromGrid(){
+		myGrid.emptyCell(c1.row, c1.col);
+		myGrid.emptyCell(c2.row, c2.col);
+		myGrid.emptyCell(c3.row, c3.col);
+		myGrid.emptyCell(c4.row, c4.col);
+	}
+	
+	public void shiftShapeLeft(){
+		boolean valid = true;
+		if(c1.col == 0 || c2.col == 0 || c3.col == 0 || c4.col == 0){
+			//WE ARE AT THE END
+			valid = false;
+		}
+		if(valid){
+			removeFromGrid();
+			c1.col = c1.col - 1;
+			c2.col = c2.col - 1;
+			c3.col = c3.col - 1;
+			c4.col = c4.col - 1;
+			pushToGrid();
+		}
+	}
+	
+	public void shiftShapeRight(){
+		boolean valid = true;
+		if(c1.col == SketchtrisGrid.COLS - 1 || c2.col == SketchtrisGrid.COLS - 1 || c3.col == SketchtrisGrid.COLS - 1 || c4.col == SketchtrisGrid.COLS - 1){
+			//WE ARE AT THE END
+			valid = false;
+		}
+		if(valid){
+			removeFromGrid();
+			c1.col = c1.col + 1;
+			c2.col = c2.col + 1;
+			c3.col = c3.col + 1;
+			c4.col = c4.col + 1;
+			pushToGrid();
+		}
+	}
+	
 	
 	public void move(char direction, int blocks){
 		// Moves piece to left and right
@@ -173,4 +246,25 @@ public class shape {
 		p11 = p11 + t;p12 = p12 + t;p33 = p33 + t;p34 = p34 + t;
 		p11 = p11 + t;p12 = p12 + t;p43 = p43 + t;p44 = p44 + t;
 	}
+	
+	
+
+	public boolean bottomHit(){
+		if(c1.row >= SketchtrisGrid.ROWS - 1 || c2.row >= SketchtrisGrid.ROWS - 1 || c3.row >= SketchtrisGrid.ROWS - 1  || c4.row >= SketchtrisGrid.ROWS - 1  ){
+			return true;
+		}
+		return false;
+	}
+	
+	
+	class Cube{
+		int row, col;
+		
+		Cube(int x, int y){
+			row = x;
+			col = y;
+		
+		}
+	}
+	
 }

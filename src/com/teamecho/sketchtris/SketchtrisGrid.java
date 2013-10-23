@@ -35,6 +35,9 @@ public class SketchtrisGrid {
 	
 
     public void paint(Canvas canvas, Paint paint) {
+    	
+    	//shape S = new shape('l', this);
+    	//S.pushToGrid();
 
             mLeft = 0;
             mTop = 0;
@@ -157,12 +160,17 @@ public class SketchtrisGrid {
 	
 	public void fillCell(int row, int col){
 		//given the row/column of a cell, fill it.
-		int index = (row * 12) + col;
+		int index = (row * COLS) + col;
 		fillCell(index);
 	}
 	
 	public void emptyCell(int index){
 		mCells[index] = 0;
+	}
+	
+	public void emptyCell(int row, int col){
+		int index = (row * COLS) + col;
+		emptyCell(index);
 	}
 	
 	public boolean isEmptyCell(int index){
