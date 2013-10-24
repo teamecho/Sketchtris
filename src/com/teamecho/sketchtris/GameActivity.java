@@ -1,10 +1,7 @@
 package com.teamecho.sketchtris;
  
-import java.util.ArrayList;
- 
-import android.content.Intent;
- 
-import android.app.Activity;
+import java.util.ArrayList; 
+import android.content.Intent; 
 import android.gesture.Gesture;
 import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
@@ -12,16 +9,18 @@ import android.gesture.GestureOverlayView;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 import android.gesture.Prediction;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Toast;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.FrameLayout;
-import android.widget.Toast;
+import android.widget.TextView;
  
 public class GameActivity extends FragmentActivity implements OnGesturePerformedListener, GameOverFragment.NoticeDialogListener { 
  
-  private SketchtrisView gameplayView; 
+	private SketchtrisView gameplayView;
 	private GestureLibrary myGestureLib; 
 	private GestureOverlayView gOV;
 	private FrameLayout mFL; 
@@ -29,16 +28,31 @@ public class GameActivity extends FragmentActivity implements OnGesturePerformed
 	private final int startX = mGrid.COLS/2 - 3; // centers falling piece
 	private final int startY = 0;
 	public shape currentShape;
+	public char shapeName;
+	//number of each shape
+	public int i = 15, l = 15, j = 15, z = 15, s = 15, o = 15, t = 15;
+	public View view;
+	public LayoutInflater inflater;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState); //call superclass Activity's onCreate to pass Bundle obj
 		//setContentView(R.layout.activity_gameplay); <-- heres your issue, this can't be
-		gOV = new GestureOverlayView(this); 
+		inflater = this.getLayoutInflater();
+	    view = inflater.inflate(R.layout.activity_gameplay, null);
+	    gOV = new GestureOverlayView(this); 
 		gameplayView = new SketchtrisView(this); 
 		mGrid = gameplayView.getGrid(); 
 		mFL = new FrameLayout(this);
 		
+		
+		
+		gOV.setScaleX(0.85f);
+		gOV.setScaleY(0.85f);
+
+		gOV.setTranslationX(-100);
+		gOV.setTranslationY(-100);
 		 //gestureOverlayView.addView(surfaceView);    
         gOV.setOrientation(GestureOverlayView.ORIENTATION_VERTICAL);
         gOV.setEventsInterceptionEnabled(true);
@@ -68,8 +82,10 @@ public class GameActivity extends FragmentActivity implements OnGesturePerformed
 			    	//if we're too strict nobody will ever get one of their drawn shapes recognized.
 			        if (p.score > 4.5 && !(p.name.equals("T"))) {
 			          Toast.makeText(getBaseContext(), p.name, Toast.LENGTH_SHORT).show(); //just simple popup to say shape name, using Tetris letters
- 
-			          gameplayView.setCurrentShape(new shape((p.name.toCharArray())[0], mGrid)); // draws shape at intialize place.
+			          shapeName = (p.name.toCharArray())[0];
+			          currentShape = new shape(shapeName, mGrid);
+			          updateNumOfPieces();
+			          gameplayView.setCurrentShape(currentShape); // draws shape at intialize place.
 			          //mGrid.placeShape(new shape(p.name, this), startX, startY);
 			          gameplayView.invalidate(); 
  
@@ -85,9 +101,14 @@ public class GameActivity extends FragmentActivity implements OnGesturePerformed
 			      }
 			}
 	    });
+	    
+	    
+	    
         mFL.addView(gameplayView, 0);
         mFL.addView(gOV,1);
+        mFL.addView(view,2);
         setContentView(mFL);
+        gameOver();
 	}
  
 	@Override
@@ -106,16 +127,12 @@ public class GameActivity extends FragmentActivity implements OnGesturePerformed
 	      }
 	}
 	
-	/*tests to see if the game is over ******* NEEDS TO BE MOVED TO THE GAME VIEW ********
-	 *returns true if it is*/
-	public boolean gameOver(){
-		boolean over = false;		
-		//if spots greater than the max row have a 1
-			//over = true;
-			confirmGameOver();
+	
+	public void gameOver(){		
+		//if spots greater than the max row have a 1			
+			//confirmGameOver();
 			//clear out grid
-			//change activity
-		return over;
+			//change activity		
 	}
 	
 	//popup fragment for game over
@@ -132,26 +149,70 @@ public class GameActivity extends FragmentActivity implements OnGesturePerformed
     }
 	
 	//move piece right
-	public void moveRight(){
-		
-		
+	public void moveRight(View V){
+		currentShape.move('R',1);		
 	}
 	
 	//move piece left
-	public void moveLeft(){
-		
-		
+	public void moveLeft(View V){
+		currentShape.move('L',1);		
 	}
 	
-	//move piece down
-	
-	public void moveDown(){
-		
-		
+	//move piece down	
+	public void moveDown(View V){
+		currentShape.fall(1);		
 	}
 	
 	//rotate piece
-	public void rotate(){
+	public void rotateRight(View V){
+		currentShape.rotateRight();
+	}
+	
+	//rotate piece
+	public void rotateLeft(View V){
+		currentShape.rotateLeft();
+	}
+	
+	//update piece array
+	public void updateNumOfPieces(){	
+		TextView text;
+		switch(shapeName){
+			case 'O':
+				o-=1;
+				text = (TextView) view.findViewById(R.id.numOfO);
+				text.setText(o + " - O");
+				break;
+			case 'L':
+				l-=1;
+				text = (TextView) view.findViewById(R.id.numOfL);
+				text.setText(l + " - L");
+				break;
+			case 'S':
+				s-=1;
+				text = (TextView) view.findViewById(R.id.numOfS);
+				text.setText(s + " - S");
+				break;
+			case 'I':
+				i-=1;
+				text = (TextView) view.findViewById(R.id.numOfI);
+				text.setText(i + " - I");
+				break;
+			case 'T':
+				t-=1;
+				text = (TextView) view.findViewById(R.id.numOfT);
+				text.setText(t + " - T");
+				break;
+			case 'Z':
+				z-=1;
+				text = (TextView) view.findViewById(R.id.numOfZ);
+				text.setText(z + " - Z");
+				break;
+			case 'J':
+				j-=1;
+				text = (TextView) view.findViewById(R.id.numOfJ);
+				text.setText(j + " - J");
+				break;
+		}
 		
 	
 	}

@@ -3,9 +3,10 @@ package com.teamecho.sketchtris;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
-import android.widget.Toast;
-
+import android.graphics.Point;
+import android.view.Display;
+import android.view.WindowManager;
+import android.app.Activity;
 
 public class SketchtrisGrid {
 
@@ -18,7 +19,7 @@ public class SketchtrisGrid {
 	private int mBottom;
 	
 	//These probably should be moved to a more general class.
-	public static final int COLS = 12;
+	public static final int COLS = 14;
 	public static final int ROWS = 20;
 	
 
@@ -29,22 +30,23 @@ public class SketchtrisGrid {
 			mCells[i] = 0;
 		}
 		//ARBITRARY NUMBERS
-		mCellWidth = 57;
-		mCellHeight = 50;
+				
+		mCellWidth = 70;
+		mCellHeight = 70;
 	}
 	
 
     public void paint(Canvas canvas, Paint paint) {
 
-            mLeft = 0;
-            mTop = 0;
+            mLeft = 1;
+            mTop = 3;
             mRight = mCellWidth; 
             mBottom = mCellHeight; 
             mRight = mCellWidth * COLS;
             mBottom = mCellHeight * ROWS;
-            paint.setColor(Color.BLACK);
-            paint.setStyle(Paint.Style.FILL);
-            canvas.drawRect(mLeft, mTop, mRight+120, mBottom+100, paint);
+            //paint.setColor(Color.BLACK);
+            //paint.setStyle(Paint.Style.FILL);
+            //canvas.drawRect(mLeft, mTop, mRight+120, mBottom+100, paint);
 
            
             //paint elems -- gotta do this every call to paint() so that grid looks right as shape "falls"

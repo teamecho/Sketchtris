@@ -4,70 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <android.gesture.GestureOverlayView
-        android:id="@+id/gestureOverlayView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/button2"
-        android:gestureStrokeType="multiple"
-        android:orientation="vertical" >
-
-    </android.gesture.GestureOverlayView>
-
-    <ImageButton
-        android:id="@+id/button3"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="66dp"
-        android:contentDescription="@string/right"
-        android:src="@drawable/right" />
-
-    <ImageButton
-        android:id="@+id/button2"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button3"
-        android:layout_toLeftOf="@+id/button3"
-        android:contentDescription="@string/left"
-        android:src="@drawable/left" />
-
-    <ImageButton
-        android:id="@+id/button1"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button4"
-        android:layout_alignParentBottom="true"
-        android:contentDescription="@string/down"
-        android:scaleType="center"
-        android:src="@drawable/down" />
-
-    <ImageButton
-        android:id="@+id/button4"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button3"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="32dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/rotate"
-        android:src="@drawable/rotate" />
-
     <TextView
         android:id="@+id/numOfO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/numOfL"
         android:layout_below="@+id/numOfL"
-        android:text="10 - O"
+        android:text="15 - O"
         android:textSize="30sp" />
 
     <TextView
@@ -121,7 +64,69 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/numOfZ"
-        android:text="7 - I"
+        android:text="15 - I"
         android:textSize="30sp" />
+
+    <ImageButton
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button3"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:minHeight="48dip"
+        android:minWidth="48dip"
+        android:onClick="rotateRight"
+        android:src="@drawable/rotate2" />
+
+    <ImageButton
+        android:id="@+id/button2"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@null"
+        android:contentDescription="@string/left"
+        android:onClick="moveLeft"
+        android:src="@drawable/left" />
+
+    <ImageButton
+        android:id="@+id/button3"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:contentDescription="@string/right"
+        android:onClick="moveRight"
+        android:src="@drawable/right" />
+
+    <ImageButton
+        android:id="@+id/button4"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:contentDescription="@string/rotate"
+        android:onClick="rotateLeft"
+        android:src="@drawable/rotate" />
+
+    <ImageButton
+        android:id="@+id/button1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button5"
+        android:layout_centerHorizontal="true"
+        android:background="@null"
+        android:contentDescription="@string/down"
+        android:onClick="moveDown"
+        android:scaleType="center"
+        android:src="@drawable/down" />
 
 </RelativeLayout>
