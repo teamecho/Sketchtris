@@ -45,16 +45,18 @@ public final class R {
         public static final int z=0x7f02000e;
     }
     public static final class id {
-        public static final int action_settings=0x7f0c000f;
+        public static final int action_settings=0x7f0c0011;
+        public static final int buttleft=0x7f0c0010;
         public static final int button1=0x7f0c0003;
         public static final int button2=0x7f0c0001;
         public static final int button3=0x7f0c0002;
         public static final int button4=0x7f0c0004;
+        public static final int buttright=0x7f0c000f;
         public static final int coinText=0x7f0c000c;
         public static final int descv=0x7f0c000e;
         public static final int gestureOverlayView1=0x7f0c0000;
         public static final int imgv=0x7f0c000d;
-        public static final int launch_tut=0x7f0c0010;
+        public static final int launch_tut=0x7f0c0012;
         public static final int numOfI=0x7f0c0009;
         public static final int numOfJ=0x7f0c000a;
         public static final int numOfL=0x7f0c0006;
@@ -68,6 +70,7 @@ public final class R {
         public static final int activity_main=0x7f030001;
         public static final int activity_settings=0x7f030002;
         public static final int activity_tutorial=0x7f030003;
+        public static final int bottom_bar=0x7f030004;
     }
     public static final class menu {
         public static final int menu=0x7f0b0000;
@@ -87,6 +90,8 @@ public final class R {
         public static final int hello_world=0x7f080002;
         public static final int launch_tutorial=0x7f080009;
         public static final int left=0x7f080005;
+        public static final int moveleft=0x7f08000c;
+        public static final int moveright=0x7f08000b;
         public static final int right=0x7f080006;
         public static final int rotate=0x7f080004;
         public static final int title_activity_instructions=0x7f080008;

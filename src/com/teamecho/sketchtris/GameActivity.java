@@ -17,6 +17,11 @@ import android.media.AudioManager.OnAudioFocusChangeListener;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -28,6 +33,7 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
 	private SketchtrisView gameplayView; 
 	private GestureLibrary myGestureLib; 
 	private GestureOverlayView gOV;
+	private View bottomBar;
 	private FrameLayout mFL; 
 	private SketchtrisGrid mGrid; 
 	private final int startX = mGrid.COLS/2 - 3; // centers falling piece
@@ -119,6 +125,27 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
 	
 	//creates FrameLayout and adds all views to it -- put here to keep code clean
 	public void createViews() {
+		
+		LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		bottomBar = inflater.inflate(R.layout.bottom_bar, null, false);
+		RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                                                                             RelativeLayout.LayoutParams.WRAP_CONTENT);
+		final Button strafeLeft = (Button)bottomBar.findViewById(R.id.buttleft);
+		final Button strafeRight = (Button)bottomBar.findViewById(R.id.buttright);
+		OnClickListener obcl = new Button.OnClickListener() {
+			@Override
+			public void onClick(View levoo) {
+				switch (levoo.getId()) {
+					case R.id.buttleft: 	moveLeft();
+											break;
+					case R.id.buttright: 	moveRight(); 
+											break;
+				}
+			}
+		};
+		strafeLeft.setOnClickListener(obcl);
+		strafeRight.setOnClickListener(obcl);
+		
 		gOV = new GestureOverlayView(this); 
 		gameplayView = new SketchtrisView(this); 
 		mGrid = gameplayView.getGrid(); 
@@ -169,6 +196,7 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
 	    });
         mFL.addView(gameplayView, 0);
         mFL.addView(gOV,1);
+        mFL.addView(bottomBar,-1);
         setContentView(mFL);
 	}
 	

@@ -15,5 +15,7 @@
     <string name="title_activity_instructions">Instructions</string>
     <string name="launch_tutorial">Launch Tutorial</string>
     <string name="title_activity_tutorial">Tutorial</string>
+    <string name="moveright">&gt;</string>
+    <string name="moveleft">&lt;</string>
 
 </resources>
