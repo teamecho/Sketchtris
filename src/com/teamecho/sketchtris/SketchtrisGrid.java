@@ -70,6 +70,7 @@ public class SketchtrisGrid {
                     paint.setColor(cTemp); 
                     canvas.drawRect(l, t, r, b, paint); 
             }
+            
 
     }
 
@@ -167,5 +168,12 @@ public class SketchtrisGrid {
 	
 	public boolean isEmptyCell(int index){
 		return (mCells[index] == 0);
+	}
+	
+	public void dropPiece(shape s){
+		for(int i =0; i< COLS-10; i++){
+			s.fall(1);
+
+		}
 	}
 }
