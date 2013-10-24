@@ -11,10 +11,8 @@ public class shape {
 	int[] formpoints = { p11, p12, p13, p14, p21, p22, p23, p24, p31, p32, p33, p34, p41, p42, p43, p44 };
 	
 	
-	//NEW STUFF CHELSEA DON'T HATE ME
+	//NEW STUFF CHELSEA DON'T HATE ME( I dont hate you omg)
 	Cube c1,c2,c3,c4;
-	
-	
 	
 	public shape(char shape, SketchtrisGrid grid){
 		// Symbolic representation of the four cubes that build a shape.
@@ -89,7 +87,7 @@ public class shape {
 	public void rotateRight(){
 		
 		rotater = form;
-		//THIS IS A ROTATE MATRIX BY CHELSEA WHO IS A POOPY HEAD
+		//THIS IS A ROTATE MATRIX BY CHELSEA WHO IS AWESOME
 		// abcd miea
 		// efgh njfb
 		// ijkl okgc

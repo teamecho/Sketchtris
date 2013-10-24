@@ -16,6 +16,7 @@ public class SketchtrisGrid {
 	private int mRight;
 	private int mTop;
 	private int mBottom;
+	Canvas currentCanvas;
 	
 	//These probably should be moved to a more general class.
 	public static final int COLS = 12;
@@ -35,7 +36,7 @@ public class SketchtrisGrid {
 	
 
     public void paint(Canvas canvas, Paint paint) {
-    	
+    	currentCanvas = canvas;
     	//shape S = new shape('l', this);
     	//S.pushToGrid();
 
@@ -179,8 +180,8 @@ public class SketchtrisGrid {
 	}
 	
 	public void dropPiece(shape s){
-		for(int i =0; i< COLS-10; i++){
-			s.fall(1);
+		for(int i =0; i< COLS-5; i++){
+			s.shiftShapeDown();
 
 		}
 	}

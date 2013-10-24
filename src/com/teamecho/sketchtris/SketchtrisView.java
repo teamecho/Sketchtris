@@ -9,14 +9,14 @@ import android.view.View;
 
 public class SketchtrisView extends View {
 	private Paint paint; //paint object to draw shapes
-	private shape currentShape;  //what shape is currently falling, may implement circular buffer later
+	shape currentShape;  //what shape is currently falling, may implement circular buffer later
 	private SketchtrisGrid myGrid; //talking bout myGrid dun dun dun, OOOoo oooooo, OOoooo ooooo
 	private int numUpdates; //how many updates we've done
 	private int gamePlayTime; //how long the game has been playing
-	private int fps; //arbitrary amount until we unify this across classes
-	private long nextUpdate; //next update call
+	private int fps= 5; //arbitrary amount until we unify this across classes
+	private long nextUpdate = 0; //next update call
 	private long nextShift;  //next time to shift the piece down (at the normal pace)
-	private long ticks;
+	private long ticks =0;
 	private GestureOverlayView gOV;
 	
 	public SketchtrisView(Activity context, GestureOverlayView g) {
@@ -54,11 +54,17 @@ public class SketchtrisView extends View {
 	
     @Override
     protected void onDraw(Canvas canvas) {
+    	int count = 0;
             super.onDraw(canvas);
             myGrid.paint(canvas, paint); //paints elements
+            if(currentShape != null) {currentShape.shiftShapeDown(); }
             //invalidate(); //ensures redraw occurs -- UNNECESSARY
-            //myGrid.dropPiece(currentShape);
-           
+            if(currentShape != null && count < myGrid.ROWS){
+            	count++;
+            	for(int i = 0; i< count; i++){
+            	currentShape.shiftShapeDown();
+            }
+            }
     }
     
     protected void update(){
@@ -69,12 +75,14 @@ public class SketchtrisView extends View {
     	if(time > nextUpdate){
     		nextUpdate = time + 1000 / fps;
     		ticks++;
-    		
+    		//onDraw(myGrid.currentCanvas);
     		
     		//SOMEWHERE IN THIS HELL:
     		// CHECK IF THE ACTIVE SHAPE HAS HIT THE BOTTOM
     		// IF IT HAS
     		// REACTIVATE GOV
+    		
+    		// THEN KILL SELF BY IMPLAING SELF ON Z shape
     		
     	}
     	

@@ -71,11 +71,22 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
  
 			          gameplayView.setCurrentShape(new shape((p.name.toCharArray())[0], mGrid)); // draws shape at intialize place.
 			          //mGrid.placeShape(new shape(p.name, this), startX, startY);
+			          if(gameplayView.currentShape != null) { gameplayView.currentShape.shiftShapeDown();}
+			          int ticks = 0;
+			   
+			          long time = System.currentTimeMillis();
+			          long nextUpdate = time;
+			      	while(time > nextUpdate){
+			      		nextUpdate = time + 1000;
+			      		 time = System.currentTimeMillis();
+			      		ticks++;
+			      		Toast.makeText(getBaseContext(), ticks, Toast.LENGTH_SHORT).show(); 
+			      		gameplayView.currentShape.shiftShapeDown();
+			      	}
 			          gameplayView.invalidate(); 
  
 			         //gameplayView.invalidate();  
 			         // mGrid.paint(canvas, paint);
- 
 			        }
 			        else {
 			        	if (p.score > 9.5 && !p.name.equals("T")) {
@@ -84,11 +95,12 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
 			        }
 			      }
 			    gOV.setFocusableInTouchMode(false);
-			}
+			    }
 	    });
         mFL.addView(gameplayView, 0);
         mFL.addView(gOV,1);
         setContentView(mFL);
+       
 	}
  
 	/*tests to see if the game is over ******* NEEDS TO BE MOVED TO THE GAME VIEW ********
