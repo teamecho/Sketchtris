@@ -57,6 +57,8 @@ public class SketchtrisView extends View {
             super.onDraw(canvas);
             myGrid.paint(canvas, paint); //paints elements
             //invalidate(); //ensures redraw occurs -- UNNECESSARY
+            //myGrid.dropPiece(currentShape);
+           
     }
     
     protected void update(){

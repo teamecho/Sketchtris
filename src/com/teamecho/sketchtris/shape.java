@@ -1,6 +1,7 @@
 package com.teamecho.sketchtris;
 
 public class shape {
+	boolean isBlocked = false;
 	char id = 'a'; // Name of the shape: O, l , s, z, t, L, J 
 	int[][] form = new int[4][4];
 	int[][] rotater = new int[4][4];
@@ -146,8 +147,19 @@ public class shape {
 	
 	/*public void fall(int lvls){
 	// Method drops the shape straight down a given number of lvls
+<<<<<<< HEAD
 
 		if (bottomHit()){
+=======
+		
+		int t = lvls * SketchtrisGrid.COLS;
+		for (int k = 0; k < formpoints.length; k++){
+			if (!myGrid.isEmptyCell(formpoints[k]+t)){
+				isBlocked = true;
+			}
+		}
+		if (isBlocked){
+>>>>>>> 406ac147027c543bcd27d082418289a17bdb4548
 			// Perform tasks for landing 
 		}
 		else {
