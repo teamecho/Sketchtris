@@ -12,6 +12,7 @@ import android.gesture.GestureOverlayView;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 import android.gesture.Prediction;
 import android.os.Bundle;
+import android.view.SurfaceHolder;
 import android.widget.Toast;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -29,6 +30,8 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
 	private final int startX = mGrid.COLS/2 - 3; // centers falling piece
 	private final int startY = 0;
 	public shape currentShape;
+	private MainThread thread;
+	private SurfaceHolder surHold; // holds the screen while pieces like rain.
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +39,10 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
 		//setContentView(R.layout.activity_gameplay); <-- heres your issue, this can't be
 		gOV = new GestureOverlayView(this); 
 		gameplayView = new SketchtrisView(this, gOV); 
-		mGrid = gameplayView.getGrid(); 
+		mGrid = gameplayView.getGrid();
 		mFL = new FrameLayout(this);
-		
+		thread = new MainThread(gameplayView, surHold);
+	
 		 //gestureOverlayView.addView(surfaceView);    
         gOV.setOrientation(GestureOverlayView.ORIENTATION_VERTICAL);
         gOV.setEventsInterceptionEnabled(true);
@@ -72,19 +76,12 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
 			          gameplayView.setCurrentShape(new shape((p.name.toCharArray())[0], mGrid)); // draws shape at intialize place.
 			          //mGrid.placeShape(new shape(p.name, this), startX, startY);
 			          if(gameplayView.currentShape != null) { gameplayView.currentShape.shiftShapeDown();}
-			          int ticks = 0;
-			   
-			          long time = System.currentTimeMillis();
-			          long nextUpdate = time;
-			      	while(time > nextUpdate){
-			      		nextUpdate = time + 1000;
-			      		 time = System.currentTimeMillis();
-			      		ticks++;
-			      		Toast.makeText(getBaseContext(), ticks, Toast.LENGTH_SHORT).show(); 
-			      		gameplayView.currentShape.shiftShapeDown();
-			      	}
+			         
+			          surfaceCreated(surHold);
+			          
 			          gameplayView.invalidate(); 
- 
+			          
+			        
 			         //gameplayView.invalidate();  
 			         // mGrid.paint(canvas, paint);
 			        }
@@ -100,7 +97,7 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
         mFL.addView(gameplayView, 0);
         mFL.addView(gOV,1);
         setContentView(mFL);
-       
+        surfaceDestroyed(surHold);
 	}
  
 	/*tests to see if the game is over ******* NEEDS TO BE MOVED TO THE GAME VIEW ********
@@ -133,6 +130,31 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
 		
 		
 	}
+	
+	public void surfaceCreated(SurfaceHolder holder) {
+		
+		       thread.setRunning(true);
+		       thread.start();
+		
+		    }
+		
+		 
+		
+		   public void surfaceDestroyed(SurfaceHolder holder) {
+		        boolean retry = true;
+		        while (retry) {
+		          try {
+		                thread.join();
+		                retry = false;
+		
+		            } catch (InterruptedException e) {
+		               // try again shutting down the thread
+		           }
+		
+		        }
+		
+		    }
+
 	
 	//move piece left
 	public void moveLeft(){

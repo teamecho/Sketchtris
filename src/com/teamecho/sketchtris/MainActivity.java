@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 
 public class MainActivity extends Activity implements OnClickListener {
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,7 +53,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		anim.setRepeatMode(Animation.REVERSE);
 		anim.setRepeatCount(Animation.INFINITE);
 		coinText.startAnimation(anim); 
-		
+
  
 	}
 

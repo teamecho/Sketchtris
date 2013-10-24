@@ -72,10 +72,12 @@ public class SketchtrisView extends View {
     	
     	//create game over check somewhere once the grid is working right
     	//Assume this is not while drawing? 
-    	if(time > nextUpdate){
-    		nextUpdate = time + 1000 / fps;
-    		ticks++;
-    		//onDraw(myGrid.currentCanvas);
+    	//if(time > nextUpdate){
+    	//	nextUpdate = time + 1000 / fps;
+    	//	ticks++;
+
+			currentShape.shiftShapeDown();
+    		onDraw(myGrid.currentCanvas);
     		
     		//SOMEWHERE IN THIS HELL:
     		// CHECK IF THE ACTIVE SHAPE HAS HIT THE BOTTOM
@@ -84,7 +86,7 @@ public class SketchtrisView extends View {
     		
     		// THEN KILL SELF BY IMPLAING SELF ON Z shape
     		
-    	}
+    	//}
     	
     }
 
