@@ -169,13 +169,15 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
     			    	//if we're too strict nobody will ever get one of their drawn shapes recognized.
     			        if (p.score > 4.5 && !(p.name.equals("T"))) {
     			          if (noMoreToDraw(p.name)) Toast.makeText(getBaseContext(), "You are out of " + p.name + "!", Toast.LENGTH_SHORT).show();
-    			          Toast.makeText(getBaseContext(), p.name, Toast.LENGTH_SHORT).show(); //just simple popup to say shape name, using Tetris letters
-    			          shapeName = (p.name.toCharArray())[0];
-    			          currentShape = new shape(shapeName, mGrid);
-    			          updateNumOfPieces();
-    			          gameplayView.setCurrentShape(currentShape); // draws shape at intialize place.
-    			          //mGrid.placeShape(new shape(p.name, this), startX, startY);
-    			          gameplayView.invalidate(); 
+    			          else {
+    			        	  Toast.makeText(getBaseContext(), p.name, Toast.LENGTH_SHORT).show(); //just simple popup to say shape name, using Tetris letters
+	    			          shapeName = (p.name.toCharArray())[0];
+	    			          currentShape = new shape(shapeName, mGrid);
+	    			          updateNumOfPieces();
+	    			          gameplayView.setCurrentShape(currentShape); // draws shape at intialize place.
+	    			          //mGrid.placeShape(new shape(p.name, this), startX, startY);
+	    			          gameplayView.invalidate(); 
+    			          }
      
     			         //gameplayView.invalidate();  
     			         // mGrid.paint(canvas, paint);
