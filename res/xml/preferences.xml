@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen 
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Personalization"
+        android:key="prefPersonalize" >
+    	<EditTextPreference 
+    		android:title="Set Username"
+        	android:key="prefUsername"
+        	android:defaultValue="lisa"
+        	android:dialogTitle="Enter your username for bragging rights" />
+    </PreferenceCategory>
+    <PreferenceCategory 
+        android:title="Audio" 
+        android:key="prefAudioSettings" >
+        <CheckBoxPreference 
+            android:title="Background Music" 
+            android:key="prefIfDoPlayAudio" 
+            android:defaultValue="false" 
+            android:summary="True or false" />
+        <ListPreference 
+            android:title="Song Picker" 
+            android:key="prefKeySongPicker" 
+            android:defaultValue="Tetris Dubstep" 
+            android:dialogTitle="Choose the song you wish to play" 
+            android:entryValues="@array/songChoicesValues" 
+            android:entries="@array/songChoices" 
+            android:dependency="prefIfDoPlayAudio" />
+    </PreferenceCategory>
+	<PreferenceCategory
+            android:title="Bug Reporting"
+            android:key="prefBugs" >
+            <Preference 
+                android:title="Report a bug"
+                android:key="prefLaunchBugSite" >
+                <intent
+     				android:action="android.intent.action.VIEW"
+      				android:data="mailto:jess@sjbodzo.com" />
+			</Preference>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Tutorial"
+        android:key="prefTut" >
+            <CheckBoxPreference
+                android:title="Show introduction tutorial at startup?"
+                android:key="prefDoShowTut"
+                android:defaultValue="true"
+                android:summary="Defaults to no after first app load" />
+    </PreferenceCategory>
+</PreferenceScreen>

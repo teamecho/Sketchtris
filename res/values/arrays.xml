@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="songChoices">
+        <item name="1">Theme Song A</item>
+        <item name="2">Theme Song B</item>
+        <item name="3">Theme Song C</item>
+        <item name="4">Theme Song D</item>
+    </string-array>
+    <string-array name="songChoicesValues">
+        <item name="1">Tetris Dubstep</item>
+        <item name="2">In My Mind</item>
+        <item name="3">8 Bit Get Lucky</item>
+        <item name="4">Technosteppin</item>
+    </string-array>
+</resources>
