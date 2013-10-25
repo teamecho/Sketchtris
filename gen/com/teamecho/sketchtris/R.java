@@ -78,10 +78,8 @@ public final class R {
     }
     public static final class raw {
         public static final int gestures=0x7f050000;
-        public static final int t1=0x7f050001;
-        public static final int t2=0x7f050002;
-        public static final int t3=0x7f050003;
-        public static final int t4=0x7f050004;
+        public static final int t2=0x7f050001;
+        public static final int t4=0x7f050002;
     }
     public static final class string {
         public static final int action_settings=0x7f080001;

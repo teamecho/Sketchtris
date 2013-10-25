@@ -53,7 +53,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		coinText.startAnimation(anim); 
 		
 		Editor e = PreferenceManager.getDefaultSharedPreferences(this).edit();
-		//e.clear(); //wipes out all prefs
+		e.clear(); //wipes out all prefs
 		//e.apply(); //asynchronous update of sharedPrefs
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false); //true sets it every single time
 		SharedPreferences settings = getSharedPreferences("preferences", 2);
