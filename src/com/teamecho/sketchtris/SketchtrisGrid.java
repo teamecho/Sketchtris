@@ -3,51 +3,48 @@ package com.teamecho.sketchtris;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
-import android.widget.Toast;
-
+import android.graphics.Point;
+import android.view.Display;
+import android.view.WindowManager;
+import android.app.Activity;
 
 public class SketchtrisGrid {
 
-        private int mCells[];
-        private int mCellWidth;
-        private int mCellHeight;
-        private int mLeft;
-        private int mRight;
-        private int mTop;
-        private int mBottom;
-        
-        //These probably should be moved to a more general class.
-        public static final int COLS = 12;
-        public static final int ROWS = 20;
-        
+	private int mCells[];
+	private int mCellWidth;
+	private int mCellHeight;
+	private int mLeft;
+	private int mRight;
+	private int mTop;
+	private int mBottom;
+	
+	//These probably should be moved to a more general class.
+	public static final int COLS = 12;
+	public static final int ROWS = 20;
+	
 
-        public SketchtrisGrid(){
-                //Create a Grid with each cell set to 0;
-                mCells = new int[COLS * ROWS];
-                for(int i = 0; i < mCells.length; i++){
-                        mCells[i] = 0;
-                }
-                //ARBITRARY NUMBERS
-                mCellWidth = 57;
-                mCellHeight = 50;
-        }
-        
-
+	public SketchtrisGrid(){
+		//Create a Grid with each cell set to 0;
+		mCells = new int[COLS * ROWS];
+		for(int i = 0; i < mCells.length; i++){
+			mCells[i] = 0;
+		}
+		//ARBITRARY NUMBERS
+				
+		mCellWidth = 57;
+		mCellHeight = 50;
+	}
     public void paint(Canvas canvas, Paint paint) {
             
             //shape S = new shape('l', this);
             //S.pushToGrid();
-
             mLeft = 0;
             mTop = 0;
-            mRight = mCellWidth;
-            mBottom = mCellHeight;
             mRight = mCellWidth * COLS;
             mBottom = mCellHeight * ROWS;
-            paint.setColor(Color.BLACK);
-            paint.setStyle(Paint.Style.FILL);
-            canvas.drawRect(mLeft, mTop, mRight+120, mBottom+100, paint);
+            //paint.setColor(Color.BLACK);
+            //paint.setStyle(Paint.Style.FILL);
+            //canvas.drawRect(mLeft, mTop, mRight+120, mBottom+100, paint);
 
            
             //paint elems -- gotta do this every call to paint() so that grid looks right as shape "falls"

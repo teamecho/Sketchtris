@@ -13,6 +13,22 @@ public final class R {
         public static final int songChoicesValues=0x7f060001;
     }
     public static final class attr {
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int letter=0x7f010000;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int value=0x7f010001;
     }
     public static final class color {
         public static final int black=0x7f090000;
@@ -40,30 +56,31 @@ public final class R {
         public static final int o=0x7f020009;
         public static final int right=0x7f02000a;
         public static final int rotate=0x7f02000b;
-        public static final int s=0x7f02000c;
-        public static final int t=0x7f02000d;
-        public static final int z=0x7f02000e;
+        public static final int rotate2=0x7f02000c;
+        public static final int s=0x7f02000d;
+        public static final int t=0x7f02000e;
+        public static final int z=0x7f02000f;
     }
     public static final class id {
         public static final int action_settings=0x7f0c0011;
         public static final int buttleft=0x7f0c0010;
-        public static final int button1=0x7f0c0003;
-        public static final int button2=0x7f0c0001;
-        public static final int button3=0x7f0c0002;
-        public static final int button4=0x7f0c0004;
+        public static final int button1=0x7f0c000b;
+        public static final int button2=0x7f0c0009;
+        public static final int button3=0x7f0c0008;
+        public static final int button4=0x7f0c000a;
+        public static final int button5=0x7f0c0007;
         public static final int buttright=0x7f0c000f;
         public static final int coinText=0x7f0c000c;
         public static final int descv=0x7f0c000e;
-        public static final int gestureOverlayView1=0x7f0c0000;
         public static final int imgv=0x7f0c000d;
         public static final int launch_tut=0x7f0c0012;
-        public static final int numOfI=0x7f0c0009;
-        public static final int numOfJ=0x7f0c000a;
-        public static final int numOfL=0x7f0c0006;
-        public static final int numOfO=0x7f0c0005;
-        public static final int numOfS=0x7f0c0008;
-        public static final int numOfT=0x7f0c000b;
-        public static final int numOfZ=0x7f0c0007;
+        public static final int numOfI=0x7f0c0004;
+        public static final int numOfJ=0x7f0c0005;
+        public static final int numOfL=0x7f0c0001;
+        public static final int numOfO=0x7f0c0000;
+        public static final int numOfS=0x7f0c0003;
+        public static final int numOfT=0x7f0c0006;
+        public static final int numOfZ=0x7f0c0002;
     }
     public static final class layout {
         public static final int activity_gameplay=0x7f030000;
@@ -127,4 +144,49 @@ public final class R {
     public static final class xml {
         public static final int preferences=0x7f040000;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a RobotoTextView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #RobotoTextView_letter com.teamecho.sketchtris:letter}</code></td><td></td></tr>
+           <tr><td><code>{@link #RobotoTextView_value com.teamecho.sketchtris:value}</code></td><td></td></tr>
+           </table>
+           @see #RobotoTextView_letter
+           @see #RobotoTextView_value
+         */
+        public static final int[] RobotoTextView = {
+            0x7f010000, 0x7f010001
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.teamecho.sketchtris.R.attr#letter}
+          attribute's value can be found in the {@link #RobotoTextView} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.teamecho.sketchtris:letter
+        */
+        public static final int RobotoTextView_letter = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.teamecho.sketchtris.R.attr#value}
+          attribute's value can be found in the {@link #RobotoTextView} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.teamecho.sketchtris:value
+        */
+        public static final int RobotoTextView_value = 1;
+    };
 }
