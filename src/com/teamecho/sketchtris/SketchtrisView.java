@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.gesture.GestureOverlayView;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 
 
-public class SketchtrisView extends View {
+public class SketchtrisView extends SurfaceView implements SurfaceHolder.Callback{
 	private Paint paint; //paint object to draw shapes
 	private shape currentShape;  //what shape is currently falling, may implement circular buffer later
 	private SketchtrisGrid myGrid; //talking bout myGrid dun dun dun, OOOoo oooooo, OOoooo ooooo
@@ -18,14 +20,13 @@ public class SketchtrisView extends View {
 	private long nextShift;  //next time to shift the piece down (at the normal pace)
 	private long ticks;
 	private GestureOverlayView gOV;
+	private MainThread thread;
 	
 	public SketchtrisView(Activity context, GestureOverlayView g) {
 		super(context);
-		//hostActivity = context; //track who I display inside of to pass Context to methods
-		//setBackgroundColor(color.holo_blue_dark);
-		//setContentView(R.layout.activity_gameplay);
 		setFocusable(true);  //this view can have focus
-		//setFocusableInTouchMode(false); //focus priority on touch
+		getHolder().addCallback(this);
+		thread = new MainThread(getHolder(), this);
 		paint = new Paint(); //create Paint object to make shapes show up on screen
 		myGrid = new SketchtrisGrid(); //init my grid obj to play on
 		gOV = g;
@@ -52,32 +53,65 @@ public class SketchtrisView extends View {
 		currentShape = null;
 	}
 	
+	
+	public void drawGrid(Canvas canvas){
+		myGrid.paint(canvas, paint);
+	}
+	
     @Override
     protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
-            myGrid.paint(canvas, paint); //paints elements
-            //invalidate(); //ensures redraw occurs -- UNNECESSARY
-            //myGrid.dropPiece(currentShape);
+            drawGrid(canvas);
            
     }
     
     protected void update(){
-    	long time = System.currentTimeMillis();
-    	
-    	//create game over check somewhere once the grid is working right
-    	//Assume this is not while drawing? 
-    	if(time > nextUpdate){
-    		nextUpdate = time + 1000 / fps;
-    		ticks++;
-    		
-    		
-    		//SOMEWHERE IN THIS HELL:
-    		// CHECK IF THE ACTIVE SHAPE HAS HIT THE BOTTOM
-    		// IF IT HAS
-    		// REACTIVATE GOV
-    		
+    	if(currentShape != null){
+    		if(!currentShape.bottomHit() && !currentShape.bottomCollission()){
+    			currentShape.shiftShapeDown();
+    		}
+    		else{
+    			currentShape = null;
+    		}
     	}
-    	
     }
+
+
+	@Override
+	public void surfaceChanged(SurfaceHolder holder, int format, int width,
+			int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void surfaceCreated(SurfaceHolder holder) {
+		// TODO Auto-generated method stub
+		thread.setRunning(true);
+		thread.start();
+		
+	}
+
+
+	@Override
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		// TODO Auto-generated method stub
+		boolean retry = true;
+		while(retry){
+			try{
+				thread.join();
+				retry = false;
+			}
+			catch(InterruptedException e){
+				//try again!
+			}
+		}
+		
+	}
+	
+	public void gestureInputted(){
+	
+	}
 
 }

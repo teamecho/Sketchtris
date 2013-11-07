@@ -170,7 +170,7 @@ public class shape {
 	*/
 	
 	public void shiftShapeDown(){
-		if(!bottomHit()){
+		if(!bottomHit() && !bottomCollission()){
 			removeFromGrid();
 			c1.row++;
 			c2.row++;
@@ -259,6 +259,12 @@ public class shape {
 		p11 = p11 + t;p12 = p12 + t;p43 = p43 + t;p44 = p44 + t;
 	}
 	
+	public boolean bottomCollission(){
+		if(myGrid.isEmptyCell(c1.row + 1, c1.col) && myGrid.isEmptyCell(c2.row + 1, c2.col) && myGrid.isEmptyCell(c3.row + 1, c3.col) && myGrid.isEmptyCell(c3.row + 1, c3.col) ){
+			return true;
+	}
+		return false;
+	}
 	
 
 	public boolean bottomHit(){

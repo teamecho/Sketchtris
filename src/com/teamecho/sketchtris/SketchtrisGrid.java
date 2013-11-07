@@ -174,13 +174,18 @@ public class SketchtrisGrid {
 		emptyCell(index);
 	}
 	
+	public boolean isEmptyCell(int row, int col){
+		int index = (row * COLS) + col;
+		return isEmptyCell(index);
+	}
+	
 	public boolean isEmptyCell(int index){
 		return (mCells[index] == 0);
 	}
 	
 	public void dropPiece(shape s){
 		for(int i =0; i< COLS-10; i++){
-			s.fall(1);
+			s.shiftShapeDown();
 
 		}
 	}

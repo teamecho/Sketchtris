@@ -55,9 +55,9 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
 			//this method fires off when the user has finished inputting the gesture
 			public void onGesturePerformed(GestureOverlayView arg0, Gesture gesture) {
 				// clean grid from last gesture?
-				for ( int i  = 0; i < (SketchtrisGrid.COLS*SketchtrisGrid.ROWS); i++){
-					mGrid.emptyCell(i);
-				}
+				//for ( int i  = 0; i < (SketchtrisGrid.COLS*SketchtrisGrid.ROWS); i++){
+				//	mGrid.emptyCell(i);
+				//}
 				Log.v("performed","performed");
 				//as our gestureLibrary tries to recognize drawn shapes, it creates Prediction objects;
 				//Prediction objects basically store a name and a score (score is likelihood of a match)
