@@ -167,7 +167,7 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
     					mGrid.emptyCell(i);
     				}
     				Log.v("performed","performed");
-					Toast.makeText(getBaseContext(), "Stack height: " + pieceStackHeight, Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getBaseContext(), "Stack height: " + pieceStackHeight, Toast.LENGTH_SHORT).show();
     				//as our gestureLibrary tries to recognize drawn shapes, it creates Prediction objects;
     				//Prediction objects basically store a name and a score (score is likelihood of a match)
     				//So predictions is an ArrayList of all our Gestures with the likelihood that we have a match of each one
@@ -211,6 +211,7 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
     			        else {
     			        	//Toast.makeText(getBaseContext(),"Accurage below threshold: " + p.score,Toast.LENGTH_SHORT).show();
   			      		    text.setText("Unrecognized input!");
+  			      		    imv.setImageDrawable(null);
   			    		    Toast toast = new Toast(getApplicationContext());
   			    		    toast.setGravity(Gravity.BOTTOM, 0, 0);
   			    		    toast.setDuration(Toast.LENGTH_SHORT);
