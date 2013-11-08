@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="songChoices">
-        <item name="1">Theme Song A</item>
-        <item name="2">Theme Song B</item>
-        <item name="3">Theme Song C</item>
-        <item name="4">Theme Song D</item>
+        <item name="1">Bansuri Flute and Tabla Instrumental</item>
+        <item name="2">Etude 30</item>
+        <item name="3">Posturing</item>
+        <item name="4">Ska</item>
     </string-array>
     <string-array name="songChoicesValues">
-        <item name="1">Tetris Dubstep</item>
-        <item name="2">In My Mind</item>
-        <item name="3">8 Bit Get Lucky</item>
-        <item name="4">Technosteppin</item>
+        <item name="1">b</item>
+        <item name="2">e</item>
+        <item name="3">p</item>
+        <item name="4">s</item>
     </string-array>
 </resources>
