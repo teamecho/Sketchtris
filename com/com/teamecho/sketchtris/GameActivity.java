@@ -47,6 +47,7 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
     	public int i = 15, l = 15, j = 15, z = 15, s = 15, o = 15, t = 15;
     	public View view;
     	public LayoutInflater inflater;
+    	public static int pieceStackHeight; 
         
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +131,6 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
         
         //creates FrameLayout and adds all views to it -- put here to keep code clean
         public void createViews() {
-    		//setContentView(R.layout.activity_gameplay); <-- heres your issue, this can't be
     		LayoutInflater inflater = this.getLayoutInflater();
     	    view = inflater.inflate(R.layout.activity_gameplay, null);
     	    gOV = new GestureOverlayView(this); 
@@ -138,7 +138,7 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
     		mGrid = gameplayView.getGrid(); 
     		mFL = new FrameLayout(this);
     		Typeface tF = Typeface.createFromAsset(getAssets(),"Roboto-Thin.ttf");
-    		Typeface tRF = Typeface.createFromAsset(getAssets(),"Roboto-Thin.ttf"); 
+    		Typeface tRF = Typeface.createFromAsset(getAssets(),"Roboto-Bold.ttf"); 
     		
     		//inflate custom Toast
     		inflater = getLayoutInflater();
@@ -147,15 +147,8 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
     		final TextView text = (TextView) toastDefView.findViewById(R.id.text);
     		text.setTypeface(tRF);
     		final ImageView imv = (ImageView) toastDefView.findViewById(R.id.imv);
-    		
-    		
-    		//erika this is screen size dependent (?) and I'd rather it be too small for you than too big for the rest of us
-    		//gOV.setScaleX(0.85f);
-    		//gOV.setScaleY(0.85f);
-    		//gOV.setTranslationX(-100);
-    		//gOV.setTranslationY(-100);
     
-            gOV.setOrientation(GestureOverlayView.ORIENTATION_VERTICAL);
+            gOV.setOrientation(GestureOverlayView.ORIENTATION_HORIZONTAL);
             gOV.setEventsInterceptionEnabled(true);
             gOV.setGestureStrokeType(GestureOverlayView.GESTURE_STROKE_TYPE_MULTIPLE);	
             //gOV.addOnGesturePerformedListener(this);
@@ -170,10 +163,11 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
     			//this method fires off when the user has finished inputting the gesture
     			public void onGesturePerformed(GestureOverlayView arg0, Gesture gesture) {
     				// clean grid from last gesture?
-    				for ( int i  = 0; i < (SketchtrisGrid.COLS*SketchtrisGrid.ROWS); i++){
+    				for ( int i  = 0; i < pieceStackHeight; i++){
     					mGrid.emptyCell(i);
     				}
     				Log.v("performed","performed");
+					Toast.makeText(getBaseContext(), "Stack height: " + pieceStackHeight, Toast.LENGTH_SHORT).show();
     				//as our gestureLibrary tries to recognize drawn shapes, it creates Prediction objects;
     				//Prediction objects basically store a name and a score (score is likelihood of a match)
     				//So predictions is an ArrayList of all our Gestures with the likelihood that we have a match of each one
@@ -183,9 +177,11 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
     			    	//while a higher score value is "better" and helps eliminate false positives, 
     			    	//if we're too strict nobody will ever get one of their drawn shapes recognized.
     			        if (p.score > 0.90) {
-    			          if (noMoreToDraw(p.name)) Toast.makeText(getBaseContext(), "You are out of " + p.name + "!", Toast.LENGTH_SHORT).show();
+    			          if (noMoreToDraw(p.name)) {
+    			        	  Toast.makeText(getBaseContext(), "You are out of " + p.name + "!", Toast.LENGTH_SHORT).show();
+    			        	  break;
+    			          }
     			          else {
-    			        	  
     			        	  //grab image of shape from res/drawable and inflate into custom toast view
     			        	  int id = getResources().getIdentifier("com.teamecho.sketchtris:drawable/" + p.name.toLowerCase(), null, null);
     			        	  imv.setImageResource(id);
@@ -202,6 +198,11 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
 	    			          updateNumOfPieces();
 	    			          gameplayView.setCurrentShape(currentShape); // draws shape at intialize place.
 	    			          //mGrid.placeShape(new shape(p.name, this), startX, startY);
+	    	    			  if (currentShape.topHit()) {
+	    	    					confirmGameOver();
+	    	    					Toast.makeText(getBaseContext(), "Game over", Toast.LENGTH_SHORT).show();
+	    	    					break;
+	    	    			  }
 	    			          gameplayView.invalidate(); 
 	    			          //isIDed = true;
 	    			          break;
@@ -329,6 +330,7 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
 		}
 	}
 	
+	/**
 	@Override
 	public boolean onTouchEvent(MotionEvent event){ 
 	    int action = MotionEventCompat.getActionMasked(event);
@@ -350,4 +352,5 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
 	            return super.onTouchEvent(event);
 	    }      
 	}
+	**/
 }

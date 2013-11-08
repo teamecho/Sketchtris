@@ -9,7 +9,7 @@ public class MainThread extends Thread {
         private static final String TAG = MainThread.class.getSimpleName();
         private static final int MAX_FPS = 50;
         private static final int MAX_FRAME_SKIPS = 5;
-        private static final int FRAME_PERIOD = 1000 /MAX_FPS;
+        private static final int FRAME_PERIOD = 6000 /MAX_FPS;
         private SurfaceHolder surfaceHolder;
         private SketchtrisView sView;        
         private boolean running;

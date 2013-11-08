@@ -1,5 +1,8 @@
 package com.teamecho.sketchtris;
 
+import android.app.Application;
+import android.widget.Toast;
+
 public class shape {
         boolean isBlocked = false;
         char id = 'a'; // Name of the shape: O, l , s, z, t, L, J
@@ -9,6 +12,7 @@ public class shape {
         SketchtrisGrid myGrid;
         int p11, p12, p13, p14, p21, p22, p23, p24, p31, p32, p33, p34, p41, p42, p43, p44;
         int[] formpoints = { p11, p12, p13, p14, p21, p22, p23, p24, p31, p32, p33, p34, p41, p42, p43, p44 };
+        private GameActivity ga1;
         
         
         //NEW STUFF CHELSEA DON'T HATE ME <-- Chelsea, just hate her already - Jess
@@ -50,10 +54,10 @@ public class shape {
                                 c4 = new Cube(0, cols/2 + 1);
                                 break;
                         case 'T':
-                                c1 = new Cube(0, cols/2 -1);
+                                c1 = new Cube(0, cols/2 - 1);
                                 c2 = new Cube(1, cols/2 - 1);
-                                c3 = new Cube(2, cols/2);
-                                c4 = new Cube(1, cols/2 - 1);
+                                c3 = new Cube(1, cols/2 - 2);
+                                c4 = new Cube(1, cols/2);
                                 break;
                         case 'Z':
                                 c1 = new Cube(0, cols/2 - 1);
@@ -132,7 +136,7 @@ public class shape {
         }
         
         public void shiftShapeDown(){
-                if(!bottomHit() && !bottomCollission()){
+        	    if(!bottomHit() && !bottomCollission()){
                         removeFromGrid();
                         c1.row++;
                         c2.row++;
@@ -141,9 +145,17 @@ public class shape {
                         pushToGrid();
                 }
                 else{
-                        //solidify in grid
+                		GameActivity.pieceStackHeight += findTallestPiece();
                 }
                 
+        }
+        
+        public int findTallestPiece() {
+        	int tallest = c1.row;
+        	tallest = (c2.row > tallest) ? c2.row : tallest;
+        	tallest = (c3.row > tallest) ? c3.row : tallest;
+        	tallest = (c4.row > tallest) ? c4.row : tallest;
+        	return tallest; 
         }
         
         public void pushToGrid(){
@@ -222,20 +234,43 @@ public class shape {
         }
         
         public boolean bottomCollission(){
-                if(myGrid.isEmptyCell(c1.row + 1, c1.col) && myGrid.isEmptyCell(c2.row + 1, c2.col) && myGrid.isEmptyCell(c3.row + 1, c3.col) && myGrid.isEmptyCell(c3.row + 1, c3.col) ){
-                        return true;
-        }
+        	    // O L S I T Z J 
+        		if (id == 'O') {
+        			if (!myGrid.isEmptyCell(c3.row + 1, c3.col) || !myGrid.isEmptyCell(c4.row + 1, c4.col)) return true;
+        		}
+        		else if (id == 'L') {
+        			if (!myGrid.isEmptyCell(c3.row + 1, c3.col) || !myGrid.isEmptyCell(c4.row + 1, c4.col)) return true;
+        		}
+        		else if (id == 'S') {
+        			if (!myGrid.isEmptyCell(c4.row + 1, c4.col) || !myGrid.isEmptyCell(c3.row + 1, c3.col) || !myGrid.isEmptyCell(c2.row + 1, c2.col)) return true;
+        		}
+        		else if (id == 'I') {
+        			if (!myGrid.isEmptyCell(c1.row + 1, c1.col) || !myGrid.isEmptyCell(c2.row + 1, c2.col)|| !myGrid.isEmptyCell(c3.row + 1, c3.col) || !myGrid.isEmptyCell(c4.row + 1, c4.col)) return true;
+        		}
+        		else if (id == 'T') {
+        			if (!myGrid.isEmptyCell(c2.row + 1, c2.col) || !myGrid.isEmptyCell(c3.row + 1, c3.col) || !myGrid.isEmptyCell(c4.row + 1, c4.col)) return true;
+        		}
+        		else if (id == 'Z') {
+        			if (!myGrid.isEmptyCell(c1.row + 1, c1.col) || !myGrid.isEmptyCell(c3.row + 1, c3.col) || !myGrid.isEmptyCell(c4.row + 1, c4.col)) return true;
+        		}
+        		else if (id == 'J') {
+        			if (!myGrid.isEmptyCell(c3.row + 1, c3.col) || !myGrid.isEmptyCell(c4.row + 1, c4.col)) return true;
+        		}
                 return false;
         }
         
 
         public boolean bottomHit(){
                 if(c1.row >= SketchtrisGrid.ROWS - 1 || c2.row >= SketchtrisGrid.ROWS - 1 || c3.row >= SketchtrisGrid.ROWS - 1 || c4.row >= SketchtrisGrid.ROWS - 1 ){
-                        return true;
+                    return true;
                 }
                 return false;
         }
         
+        public boolean topHit(){
+        	return GameActivity.pieceStackHeight >= SketchtrisGrid.ROWS;
+        	//return stackHeight >= SketchtrisGrid.ROWS;
+        }
         
         class Cube{
                 int row, col;
