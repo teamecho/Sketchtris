@@ -15,13 +15,16 @@ import android.media.AudioManager;
 import android.media.AudioManager.OnAudioFocusChangeListener;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class GameActivity extends FragmentActivity implements GameOverFragment.NoticeDialogListener {
@@ -132,8 +135,16 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
     		gameplayView = new SketchtrisView(this,gOV); 
     		mGrid = gameplayView.getGrid(); 
     		mFL = new FrameLayout(this);
-    		
     		Typeface tF = Typeface.createFromAsset(getAssets(),"Roboto-Thin.ttf"); 
+    		
+    		//inflate custom Toast
+    		inflater = getLayoutInflater();
+    		final View toastDefView = inflater.inflate(R.layout.toast_layout,
+    		                               (ViewGroup) findViewById(R.id.toast_layout_root));
+    		final TextView text = (TextView) toastDefView.findViewById(R.id.text);
+    		text.setTypeface(tF);
+    		final ImageView imv = (ImageView) toastDefView.findViewById(R.id.imv);
+    		
     		
     		//erika this is screen size dependent (?) and I'd rather it be too small for you than too big for the rest of us
     		//gOV.setScaleX(0.85f);
@@ -164,31 +175,45 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
     				//Prediction objects basically store a name and a score (score is likelihood of a match)
     				//So predictions is an ArrayList of all our Gestures with the likelihood that we have a match of each one
     			    ArrayList<Prediction> predictions = myGestureLib.recognize(gesture);
+    			    //boolean isIDed = false;
     			    for (Prediction p : predictions) {
     			    	//while a higher score value is "better" and helps eliminate false positives, 
     			    	//if we're too strict nobody will ever get one of their drawn shapes recognized.
-    			        if (p.score > 4.5 && !(p.name.equals("T"))) {
+    			        if (p.score > 0.90) {
     			          if (noMoreToDraw(p.name)) Toast.makeText(getBaseContext(), "You are out of " + p.name + "!", Toast.LENGTH_SHORT).show();
     			          else {
-    			        	  Toast.makeText(getBaseContext(), p.name, Toast.LENGTH_SHORT).show(); //just simple popup to say shape name, using Tetris letters
+    			        	  
+    			        	  //grab image of shape from res/drawable and inflate into custom toast view
+    			        	  int id = getResources().getIdentifier("com.teamecho.sketchtris:drawable/" + p.name.toLowerCase(), null, null);
+    			        	  imv.setImageResource(id);
+    			        	  imv.setImageDrawable(getResources().getDrawable(id));
+    			      		  text.setText(p.name);
+    			    		  Toast toast = new Toast(getApplicationContext());
+    			    		  toast.setGravity(Gravity.BOTTOM, 0, 0);
+    			    		  toast.setDuration(Toast.LENGTH_SHORT);
+    			    		  toast.setView(toastDefView);
+    			    		  toast.show();
+    			        	 
 	    			          shapeName = (p.name.toCharArray())[0];
 	    			          currentShape = new shape(shapeName, mGrid);
 	    			          updateNumOfPieces();
 	    			          gameplayView.setCurrentShape(currentShape); // draws shape at intialize place.
 	    			          //mGrid.placeShape(new shape(p.name, this), startX, startY);
 	    			          gameplayView.invalidate(); 
+	    			          //isIDed = true;
+	    			          break;
     			          }
-     
-    			         //gameplayView.invalidate();  
-    			         // mGrid.paint(canvas, paint);
-     
     			        }
     			        else {
-    			        	if (p.score > 9.5 && !p.name.equals("T")) {
-    			        		Toast.makeText(getBaseContext(),p.name,Toast.LENGTH_SHORT).show();
-    			        	}
+    			        	//Toast.makeText(getBaseContext(),"Accurage below threshold: " + p.score,Toast.LENGTH_SHORT).show();
+  			      		    text.setText("Unrecognized input!");
+  			    		    Toast toast = new Toast(getApplicationContext());
+  			    		    toast.setGravity(Gravity.BOTTOM, 0, 0);
+  			    		    toast.setDuration(Toast.LENGTH_SHORT);
+  			    		    toast.setView(toastDefView);
+  			    		    toast.show();
     			        }
-    			      }
+    			    }
     			}
     	    });
             mFL.addView(gameplayView, 0);

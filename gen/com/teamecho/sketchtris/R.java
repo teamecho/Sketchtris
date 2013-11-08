@@ -62,7 +62,7 @@ containing a value of this type.
         public static final int z=0x7f02000f;
     }
     public static final class id {
-        public static final int action_settings=0x7f0c0011;
+        public static final int action_settings=0x7f0c0014;
         public static final int buttleft=0x7f0c0010;
         public static final int button1=0x7f0c000b;
         public static final int button2=0x7f0c0009;
@@ -73,7 +73,8 @@ containing a value of this type.
         public static final int coinText=0x7f0c000c;
         public static final int descv=0x7f0c000e;
         public static final int imgv=0x7f0c000d;
-        public static final int launch_tut=0x7f0c0012;
+        public static final int imv=0x7f0c0012;
+        public static final int launch_tut=0x7f0c0015;
         public static final int numOfI=0x7f0c0004;
         public static final int numOfJ=0x7f0c0005;
         public static final int numOfL=0x7f0c0001;
@@ -81,6 +82,8 @@ containing a value of this type.
         public static final int numOfS=0x7f0c0003;
         public static final int numOfT=0x7f0c0006;
         public static final int numOfZ=0x7f0c0002;
+        public static final int text=0x7f0c0013;
+        public static final int toast_layout_root=0x7f0c0011;
     }
     public static final class layout {
         public static final int activity_gameplay=0x7f030000;
@@ -88,6 +91,7 @@ containing a value of this type.
         public static final int activity_settings=0x7f030002;
         public static final int activity_tutorial=0x7f030003;
         public static final int bottom_bar=0x7f030004;
+        public static final int toast_layout=0x7f030005;
     }
     public static final class menu {
         public static final int menu=0x7f0b0000;
