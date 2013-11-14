@@ -34,48 +34,84 @@ public class shape {
 		p32 = p31 + 1; p33 = p32 + 1; p34 = p33 + 1;
 		p41 = SketchtrisGrid.COLS*(SketchtrisGrid.ROWS-SketchtrisGrid.ROWS/2+1-2) + ((SketchtrisGrid.COLS/2)-2);
 		p42 = p41 + 1; p43 = p42 + 1; p44 = p43 + 1;	
+		
+		---0
+		---0
+		--00
+		----
+		
 		*/
 		
 		
 		
 		switch(id){
 			case 'O':
+				/*
+				 *   1 2
+				 *   3 4
+				 */
 				c1 = new Cube(0, cols/2 -1);
 				c2 = new Cube(0, cols/2);
 				c3 = new Cube(1, cols/2);
 				c4 = new Cube(1, cols/2 - 1);
 				break;
 			case 'L':
+				/* 
+				 * 1
+				 * 2
+				 * 3 4
+				 */
 				c1 = new Cube(0, cols/2 -1);
 				c2 = new Cube(1, cols/2 - 1);
 				c3 = new Cube(2, cols/2 - 1);
 				c4 = new Cube(2, cols/2);
 				break;
 			case 'S':
+				/*
+				 *   1 2
+				 * 3 4
+				 */
 				c1 = new Cube(0, cols/2 -1);
 				c2 = new Cube(0, cols/2);
 				c3 = new Cube(1, cols/2 - 2);
 				c4 = new Cube(1, cols/2 - 1);
 				break;
 			case 'I':
-				c1 = new Cube(0, cols/2 - 1);
-				c2 = new Cube(0, cols/2);
-				c3 = new Cube(0, cols/2 - 2);
+				/*
+				 * 1 2 3 4
+				 */
+				c1 = new Cube(0, cols/2 - 2);
+				c2 = new Cube(0, cols/2 - 1);
+				c3 = new Cube(0, cols/2);
 				c4 = new Cube(0, cols/2 + 1);
 				break;
 			case 'T':
+				/*
+				 * 1
+				 * 2 3
+				 * 4
+				 */
 				c1 = new Cube(0, cols/2 -1);
 				c2 = new Cube(1, cols/2 - 1);
 				c3 = new Cube(2, cols/2);
 				c4 = new Cube(1, cols/2 - 1);
 				break;
 			case 'Z':
+				/*
+				 * 1 2
+				 *   3 4
+				 */
 				c1 = new Cube(0, cols/2 - 1);
 				c2 = new Cube(0, cols/2);
 				c3 = new Cube(1, cols/2);
 				c4 = new Cube(1, cols/2 + 1);
 				break;
 			case 'J':
+				/*
+				 *   1
+				 *   2
+				 * 4 3 
+				 */
 				c1 = new Cube(0, cols/2);
 				c2 = new Cube(1, cols/2);
 				c3 = new Cube(2, cols/2);
@@ -88,13 +124,23 @@ public class shape {
 			
 	public void rotateRight(){
 		
-		rotater = form;
+		//rotater = form;
 		//THIS IS A ROTATE MATRIX BY CHELSEA WHO IS A POOPY HEAD
 		// abcd miea
 		// efgh njfb
 		// ijkl okgc
 		// mnop plhd
 		
+		removeFromGrid();
+		c1 = new Cube(c1.col, c1.row);
+		c2 = new Cube(c2.col, c2.row);
+		c3 = new Cube(c3.col, c3.row);
+		c4 = new Cube(c4.col, c4.row);
+		pushToGrid();
+		
+		/*
+		 * 
+		 
 		if(!myGrid.isEmptyCell(p41)) { myGrid.fillCell(p11); myGrid.emptyCell(p41); }
 		if(!myGrid.isEmptyCell(p31)) { myGrid.fillCell(p12); myGrid.emptyCell(p31); }
 		if(!myGrid.isEmptyCell(p21)) { myGrid.fillCell(p13); myGrid.emptyCell(p21); }
@@ -114,6 +160,7 @@ public class shape {
 		if(!myGrid.isEmptyCell(p34)) { myGrid.fillCell(p42); myGrid.emptyCell(p34); } 
 		if(!myGrid.isEmptyCell(p24)) { myGrid.fillCell(p43); myGrid.emptyCell(p24); } 
 		if(!myGrid.isEmptyCell(p14)) { myGrid.fillCell(p44); myGrid.emptyCell(p14); } 
+		*/
 	}
 	
 	public void rotateLeft(){
