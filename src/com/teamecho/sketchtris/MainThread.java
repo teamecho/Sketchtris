@@ -1,4 +1,6 @@
 package com.teamecho.sketchtris;
+import android.annotation.SuppressLint;
+import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
@@ -16,19 +18,39 @@ public class MainThread extends Thread {
 		this.running = running;
 	}
 	
-	public MainThread(SketchtrisView sv, SurfaceHolder sh){
+	public MainThread(SurfaceHolder sh, SketchtrisView sv){
 		super();
 		this.view = sv;
-		surHold = sh;
+		setSurHold(sh);
 	}
 	
+	public boolean isRunning() {
+        return running;
+    }
+	
+	@SuppressLint("WrongCall")
 	public void run() {
+		Canvas canvas;
+		
 		long tickCount = 50;
 		Log.d(TAG, "Starting game loop");
 		while(running){
-			if(view.currentShape != null){
-				tickCount++;
-				view.update();
+			canvas = null;
+			try{ 
+				canvas = this.getSurHold().lockCanvas();
+				synchronized(getSurHold()){
+					
+					if(view.currentShape != null){
+						tickCount++;
+						view.update();
+						view.onDraw(canvas);
+					}
+				}
+			}
+			finally { 
+				if(canvas != null){
+					getSurHold().unlockCanvasAndPost(canvas);
+				}
 			}
 		}
 		Log.d(TAG, "Game loop executed " + tickCount + " times");
@@ -41,5 +63,13 @@ public class MainThread extends Thread {
 			retry = false;
 		}
 		
+	}
+
+	public SurfaceHolder getSurHold() {
+		return surHold;
+	}
+
+	public void setSurHold(SurfaceHolder surHold) {
+		this.surHold = surHold;
 	}
 }

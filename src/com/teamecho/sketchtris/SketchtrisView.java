@@ -4,34 +4,34 @@ import android.app.Activity;
 import android.gesture.GestureOverlayView;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 
 
-public class SketchtrisView extends View {
+public class SketchtrisView extends SurfaceView implements SurfaceHolder.Callback{
 	private Paint paint; //paint object to draw shapes
 	shape currentShape;  //what shape is currently falling, may implement circular buffer later
 	private SketchtrisGrid myGrid; //talking bout myGrid dun dun dun, OOOoo oooooo, OOoooo ooooo
-	private int numUpdates; //how many updates we've done
-	private int gamePlayTime; //how long the game has been playing
-	private int fps= 5; //arbitrary amount until we unify this across classes
-	private long nextUpdate = 0; //next update call
-	private long nextShift;  //next time to shift the piece down (at the normal pace)
-	private long ticks =0;
 	private GestureOverlayView gOV;
+	
+	private MainThread thread;
 	
 	public SketchtrisView(Activity context, GestureOverlayView g) {
 		super(context);
+		
+		getHolder().addCallback(this);
 		//hostActivity = context; //track who I display inside of to pass Context to methods
 		//setBackgroundColor(color.holo_blue_dark);
 		//setContentView(R.layout.activity_gameplay);
 		setFocusable(true);  //this view can have focus
+		thread = new MainThread(this.getHolder(), this);
 		//setFocusableInTouchMode(false); //focus priority on touch
 		paint = new Paint(); //create Paint object to make shapes show up on screen
 		myGrid = new SketchtrisGrid(); //init my grid obj to play on
 		gOV = g;
 		startGameVars(); //set all my gameplay instance specific vars
 	}
-	
 	
 	public SketchtrisGrid getGrid() {
 		return myGrid; 
@@ -42,19 +42,17 @@ public class SketchtrisView extends View {
 	}
 	
 	public void startGameVars() {
-		numUpdates = 0; 
-		gamePlayTime = 0; 
-		fps = 60; //arbitrary number for now
-		//make call here to create an empty grid for gameplay
-		nextUpdate = 0;
-		nextShift = 1;
-		ticks = 0;
 		currentShape = null;
 	}
 	
+	private void drawGrid(Canvas canvas){
+		myGrid.paint(canvas, paint);
+		
+		
+	}
     @Override
     protected void onDraw(Canvas canvas) {
-    	int count = 0;
+    /*	int count = 0;
             super.onDraw(canvas);
             myGrid.paint(canvas, paint); //paints elements
             if(currentShape != null) {currentShape.shiftShapeDown(); }
@@ -65,6 +63,8 @@ public class SketchtrisView extends View {
             	currentShape.shiftShapeDown();
             }
             }
+            */
+    	drawGrid(canvas);
     }
     
     protected void update(){
@@ -89,5 +89,28 @@ public class SketchtrisView extends View {
     	//}
     	
     }
+
+
+	@Override
+	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void surfaceCreated(SurfaceHolder arg0) {
+		// TODO Auto-generated method stub
+		thread.setRunning(true);
+		thread.start();
+	}
+
+	@Override
+	public void surfaceDestroyed(SurfaceHolder arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	public SurfaceHolder getHolder(){
+		return thread.getSurHold();
+	}
 
 }

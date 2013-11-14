@@ -41,7 +41,7 @@ public class GameActivity extends FragmentActivity implements GameOverFragment.N
 		gameplayView = new SketchtrisView(this, gOV); 
 		mGrid = gameplayView.getGrid();
 		mFL = new FrameLayout(this);
-		thread = new MainThread(gameplayView, surHold);
+		//thread = new MainThread(gameplayView, surHold);
 	
 		 //gestureOverlayView.addView(surfaceView);    
         gOV.setOrientation(GestureOverlayView.ORIENTATION_VERTICAL);
